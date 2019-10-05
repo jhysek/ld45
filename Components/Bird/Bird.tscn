@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://Scenes/Player.gd" type="Script" id=1]
 [ext_resource path="res://Components/Bird/Assets/body_flying.png" type="Texture" id=2]
@@ -8,6 +8,12 @@
 [ext_resource path="res://Components/Bird/Assets/tail_sitting.png" type="Texture" id=6]
 [ext_resource path="res://Components/Bird/Assets/wing_sitting.png" type="Texture" id=7]
 [ext_resource path="res://Components/Bird/Assets/claw.png" type="Texture" id=8]
+
+[sub_resource type="CircleShape2D" id=6]
+radius = 707.397
+
+[sub_resource type="CircleShape2D" id=7]
+radius = 21.3855
 
 [sub_resource type="Animation" id=5]
 resource_name = "AttackLeft"
@@ -359,7 +365,7 @@ tracks/4/keys = {
 "values": [ Vector2( 24.6311, -11.7228 ), Vector2( 24.6311, -14.5846 ) ]
 }
 tracks/5/type = "value"
-tracks/5/path = NodePath("Visuals/BodySitting/Claw:position")
+tracks/5/path = NodePath("Visuals/Claw:position")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/imported = false
@@ -418,11 +424,19 @@ __meta__ = {
 "_edit_horizontal_guides_": [ 25.7688 ]
 }
 
+[node name="Field of vision" type="Area2D" parent="."]
+editor/display_folded = true
+visible = false
+position = Vector2( 537.236, -32.8263 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Field of vision"]
+shape = SubResource( 6 )
+
 [node name="Visuals" type="Node2D" parent="."]
+editor/display_folded = true
 position = Vector2( 12.2003, -1.35559 )
 
 [node name="BodyFlying" type="Sprite" parent="Visuals"]
-visible = false
 position = Vector2( -8.5854, 0.301247 )
 texture = ExtResource( 2 )
 
@@ -440,8 +454,10 @@ offset = Vector2( 34.3884, -26.8602 )
 [node name="BeakRay" type="RayCast2D" parent="Visuals/BodyFlying"]
 position = Vector2( 69.2858, -1.35559 )
 cast_to = Vector2( 10, 0 )
+collide_with_areas = true
 
 [node name="BodySitting" type="Sprite" parent="Visuals"]
+visible = false
 position = Vector2( 13.8562, -7.41792 )
 texture = ExtResource( 5 )
 offset = Vector2( 3.24016, -0.104398 )
@@ -457,16 +473,25 @@ position = Vector2( 12.7184, 1.8544 )
 texture = ExtResource( 7 )
 offset = Vector2( -34.4517, 8.81467 )
 
-[node name="Claw" type="Sprite" parent="Visuals/BodySitting"]
+[node name="Claw" type="Sprite" parent="Visuals"]
 show_behind_parent = true
-position = Vector2( 2.65517, 25.3755 )
+position = Vector2( 16.9113, 12.9973 )
 texture = ExtResource( 8 )
 offset = Vector2( 2.4818, 4.91586 )
 
-[node name="ClawRay" type="RayCast2D" parent="Visuals"]
-position = Vector2( 20.1112, 11.8641 )
+[node name="ClawArea" type="Area2D" parent="Visuals/Claw"]
+position = Vector2( 3.00921, 7.71124 )
+collision_layer = 32
+collision_mask = 32
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Visuals/Claw/ClawArea"]
+position = Vector2( 0.189285, -3.21775 )
+shape = SubResource( 7 )
+
+[node name="ClawRay" type="RayCast2D" parent="Visuals/Claw"]
+position = Vector2( 3.59986, -6.0935 )
 enabled = true
-cast_to = Vector2( 0, 10 )
+cast_to = Vector2( 0, 15 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "Idle"
@@ -479,3 +504,8 @@ anims/Idle = SubResource( 2 )
 position = Vector2( 30.2531, -1.71421 )
 rotation = 1.57972
 shape = SubResource( 1 )
+
+[node name="PathPickTimer" type="Timer" parent="."]
+one_shot = true
+[connection signal="area_entered" from="Visuals/Claw/ClawArea" to="." method="_on_ClawArea_area_entered"]
+[connection signal="timeout" from="PathPickTimer" to="." method="pick_path"]
