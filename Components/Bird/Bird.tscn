@@ -1,0 +1,481 @@
+[gd_scene load_steps=14 format=2]
+
+[ext_resource path="res://Scenes/Player.gd" type="Script" id=1]
+[ext_resource path="res://Components/Bird/Assets/body_flying.png" type="Texture" id=2]
+[ext_resource path="res://Components/Bird/Assets/wing_back.png" type="Texture" id=3]
+[ext_resource path="res://Components/Bird/Assets/wing_front.png" type="Texture" id=4]
+[ext_resource path="res://Components/Bird/Assets/body_sitting.png" type="Texture" id=5]
+[ext_resource path="res://Components/Bird/Assets/tail_sitting.png" type="Texture" id=6]
+[ext_resource path="res://Components/Bird/Assets/wing_sitting.png" type="Texture" id=7]
+[ext_resource path="res://Components/Bird/Assets/claw.png" type="Texture" id=8]
+
+[sub_resource type="Animation" id=5]
+resource_name = "AttackLeft"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Visuals/BodyFlying:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( -8.5854, 0.301247 ), Vector2( -20.1384, -19.3151 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = false
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 78.4254 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("AnimationPlayer:playback_speed")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 1.0 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Visuals/BodyFlying/WingBack:rotation_degrees")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.6 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, -56.9913 ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Visuals/BodyFlying/WingFront:rotation_degrees")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 0.6 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, -140.134 ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Visuals:rotation_degrees")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, -78.0 ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("Visuals:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 12.2003, -1.35559 ), Vector2( 37.6553, 21.087 ) ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "AttackRight"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Visuals/BodyFlying:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( -8.5854, 0.301247 ), Vector2( -20.1384, -19.3151 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = false
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 78.4254 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("AnimationPlayer:playback_speed")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 1.0 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Visuals/BodyFlying/WingBack:rotation_degrees")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.6 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, -56.9913 ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Visuals/BodyFlying/WingFront:rotation_degrees")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 0.6 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, -140.134 ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Visuals:rotation_degrees")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 78.0 ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("Visuals:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 12.2003, -1.35559 ) ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "Flap"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Visuals/BodySitting:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Visuals/BodyFlying:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, true ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Visuals/BodyFlying/WingBack:rotation_degrees")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.1, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, -96.0359, 0.0 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Visuals/BodyFlying/WingFront:rotation_degrees")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.1, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 82.5849, 0.0 ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Visuals/BodyFlying/WingFront:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 0.1, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 15.5318, -5.61224 ), Vector2( 16.2849, -0.189877 ), Vector2( 15.5318, -5.61224 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Visuals/BodyFlying:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 0.1, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 0.602493, -5.12112 ), Vector2( 0, 0 ) ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("AnimationPlayer:playback_speed")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 2.0 ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath(".:rotation_degrees")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("Visuals:rotation_degrees")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "Idle"
+length = 2.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Visuals/BodyFlying:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Visuals/BodySitting:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Visuals/BodySitting/Wing:rotation_degrees")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 1.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 12.1742 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Visuals/BodySitting/Tail:rotation_degrees")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 1, 1.1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, -9.73149, -8.52263 ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Visuals/BodySitting:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 1.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 24.6311, -11.7228 ), Vector2( 24.6311, -14.5846 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Visuals/BodySitting/Claw:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0.1, 1.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 2.65517, 24.9839 ), Vector2( 2.65517, 28.9001 ) ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("AnimationPlayer:playback_speed")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 1.0 ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath(".:rotation_degrees")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("Visuals:rotation_degrees")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+
+[sub_resource type="CapsuleShape2D" id=1]
+radius = 12.184
+height = 51.0629
+
+[node name="Player" type="KinematicBody2D"]
+position = Vector2( -30.2267, 1.25311 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_horizontal_guides_": [ 25.7688 ]
+}
+
+[node name="Visuals" type="Node2D" parent="."]
+position = Vector2( 12.2003, -1.35559 )
+
+[node name="BodyFlying" type="Sprite" parent="Visuals"]
+visible = false
+position = Vector2( -8.5854, 0.301247 )
+texture = ExtResource( 2 )
+
+[node name="WingBack" type="Sprite" parent="Visuals/BodyFlying"]
+show_behind_parent = true
+position = Vector2( 23.5288, -5.12759 )
+texture = ExtResource( 3 )
+offset = Vector2( -23.2865, -40.673 )
+
+[node name="WingFront" type="Sprite" parent="Visuals/BodyFlying"]
+position = Vector2( 15.5318, -5.61224 )
+texture = ExtResource( 4 )
+offset = Vector2( 34.3884, -26.8602 )
+
+[node name="BeakRay" type="RayCast2D" parent="Visuals/BodyFlying"]
+position = Vector2( 69.2858, -1.35559 )
+cast_to = Vector2( 10, 0 )
+
+[node name="BodySitting" type="Sprite" parent="Visuals"]
+position = Vector2( 13.8562, -7.41792 )
+texture = ExtResource( 5 )
+offset = Vector2( 3.24016, -0.104398 )
+
+[node name="Tail" type="Sprite" parent="Visuals/BodySitting"]
+position = Vector2( -38.6513, 2.64471 )
+scale = Vector2( 1, 1 )
+texture = ExtResource( 6 )
+offset = Vector2( -40.5107, 1.04337 )
+
+[node name="Wing" type="Sprite" parent="Visuals/BodySitting"]
+position = Vector2( 12.7184, 1.8544 )
+texture = ExtResource( 7 )
+offset = Vector2( -34.4517, 8.81467 )
+
+[node name="Claw" type="Sprite" parent="Visuals/BodySitting"]
+show_behind_parent = true
+position = Vector2( 2.65517, 25.3755 )
+texture = ExtResource( 8 )
+offset = Vector2( 2.4818, 4.91586 )
+
+[node name="ClawRay" type="RayCast2D" parent="Visuals"]
+position = Vector2( 20.1112, 11.8641 )
+enabled = true
+cast_to = Vector2( 0, 10 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "Idle"
+anims/AttackLeft = SubResource( 5 )
+anims/AttackRight = SubResource( 4 )
+anims/Flap = SubResource( 3 )
+anims/Idle = SubResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 30.2531, -1.71421 )
+rotation = 1.57972
+shape = SubResource( 1 )
