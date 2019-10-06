@@ -2,7 +2,8 @@
 
 [ext_resource path="res://Scenes/PreySpawner.gd" type="Script" id=1]
 
-[node name="PreySpawner" type="Timer"]
-autostart = true
+[node name="PreySpawner" type="Node2D"]
 script = ExtResource( 1 )
-[connection signal="timeout" from="." to="." method="_on_PreySpawner_timeout"]
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true

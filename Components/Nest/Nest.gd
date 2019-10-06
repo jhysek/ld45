@@ -42,12 +42,12 @@ func _on_Nest_body_entered(body):
 			
 		$AnimationPlayer.play("ShowMenu")
 		if my_nest:
-			title.text = "MY    NEST" 
+			title.text = "MY NEST" 
 			title.set("custom_colors/font_color", Color("#dddddd"))
 			#title.set("custom_colors/font_color", Color("#00c5c5"))
 			$Panel/InfoEat.show()
 		else:
-			title.text = "ENEMY'S    NEST"
+			title.text = "ENEMY'S NEST"
 			title.set("custom_colors/font_color", Color(1, 0, 0))
 			$Panel/InfoEat.hide()
 		body.on_nest_landed(self)

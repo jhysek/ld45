@@ -1,39 +1,39 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Components/Nest/Nest.gd" type="Script" id=1]
 [ext_resource path="res://Components/Nest/star.png" type="Texture" id=2]
 [ext_resource path="res://Components/Nest/nestwhite.png" type="Texture" id=3]
 [ext_resource path="res://Components/Moon/light.png" type="Texture" id=4]
-[ext_resource path="res://Assets/bebas.otf" type="DynamicFontData" id=5]
+[ext_resource path="res://Assets/WCManoNegraBoldBta.otf" type="DynamicFontData" id=5]
+[ext_resource path="res://Assets/bebas.otf" type="DynamicFontData" id=6]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 82.2908
 
-[sub_resource type="Gradient" id=7]
+[sub_resource type="Gradient" id=2]
 offsets = PoolRealArray( 0, 0.13245, 0.725166, 1 )
 colors = PoolColorArray( 1, 1, 1, 0, 1, 1, 1, 0.264901, 1, 1, 1, 1, 1, 1, 1, 0 )
 
-[sub_resource type="RectangleShape2D" id=2]
+[sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 59.3067, 19.3733 )
 
-[sub_resource type="StyleBoxFlat" id=5]
+[sub_resource type="StyleBoxFlat" id=4]
 bg_color = Color( 0, 0, 0, 1 )
 
-[sub_resource type="DynamicFont" id=3]
+[sub_resource type="DynamicFont" id=5]
 size = 40
 outline_size = 2
 outline_color = Color( 0, 0, 0, 1 )
 use_filter = true
 font_data = ExtResource( 5 )
 
-[sub_resource type="DynamicFont" id=4]
+[sub_resource type="DynamicFont" id=6]
 size = 25
 use_mipmaps = true
 use_filter = true
-font_data = ExtResource( 5 )
+font_data = ExtResource( 6 )
 
-[sub_resource type="Animation" id=6]
-resource_name = "ShowMenu"
+[sub_resource type="Animation" id=7]
 tracks/0/type = "value"
 tracks/0/path = NodePath("Panel:rect_position")
 tracks/0/interp = 1
@@ -94,7 +94,7 @@ gravity = Vector2( 0, -100 )
 initial_velocity = 0.0
 linear_accel = 1000.0
 radial_accel = 100.0
-color_ramp = SubResource( 7 )
+color_ramp = SubResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
 self_modulate = Color( 0.141176, 0.141176, 0.141176, 1 )
@@ -106,7 +106,7 @@ texture = ExtResource( 3 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 position = Vector2( -0.144547, 17.7786 )
-shape = SubResource( 2 )
+shape = SubResource( 3 )
 one_way_collision = true
 
 [node name="Light2D" type="Light2D" parent="."]
@@ -119,22 +119,22 @@ margin_left = -150.496
 margin_top = -423.943
 margin_right = 328.504
 margin_bottom = -236.943
-custom_styles/panel = SubResource( 5 )
+custom_styles/panel = SubResource( 4 )
 
 [node name="Title" type="Label" parent="Panel"]
 margin_left = 24.1859
 margin_top = 11.3439
 margin_right = 156.186
 margin_bottom = 53.3439
-custom_fonts/font = SubResource( 3 )
-text = "YOUR     NEST"
+custom_fonts/font = SubResource( 5 )
+text = "YOUR NEST"
 
 [node name="InfoEgg" type="Label" parent="Panel"]
 margin_left = 29.3232
 margin_top = 83.4574
 margin_right = 467.323
 margin_bottom = 158.457
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 6 )
 text = "[X]       LAY    AN    EGG     (10   FOOD)
 "
 autowrap = true
@@ -144,12 +144,12 @@ margin_left = 29.3232
 margin_top = 83.4574
 margin_right = 467.323
 margin_bottom = 158.457
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 6 )
 text = "
 [C]        EAT                                              (1    FOOD     =   + 5%    ENERGY)"
 autowrap = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/ShowMenu = SubResource( 6 )
+anims/ShowMenu = SubResource( 7 )
 [connection signal="body_entered" from="." to="." method="_on_Nest_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_Nest_body_exited"]

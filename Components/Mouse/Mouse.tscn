@@ -10,7 +10,6 @@ extents = Vector2( 46.27, 17.4295 )
 [node name="Mouse" type="Area2D" groups=[
 "Prey",
 ]]
-position = Vector2( 154.482, 260.16 )
 collision_layer = 34
 collision_mask = 34
 script = ExtResource( 1 )

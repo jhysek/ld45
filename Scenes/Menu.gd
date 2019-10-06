@@ -10,3 +10,7 @@ func _on_StartBtn_mouse_entered():
 
 func _on_StartBtn_mouse_exited():
 	$Sfx/Hover.play()
+
+
+func _on_QuitBrn_pressed():
+	get_tree().quit()

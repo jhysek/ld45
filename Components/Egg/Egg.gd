@@ -30,6 +30,7 @@ func _on_HatchTimer_timeout():
 	bird.parent = parent
 	if hostile:	
 		bird.route_code = parent.route_code
+		parent.info("Little birdie hatched!")
 		bird.add_to_group("Enemy")
 		bird.load_routes()
 	else:

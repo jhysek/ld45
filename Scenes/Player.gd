@@ -10,6 +10,7 @@ const STATE_ATTACKING = 2
 const STATE_PATROLLING = 3
 const STATE_DEAD = 4
 const STATE_RETURNING = 5
+const STATE_WON = 6
 
 const EGG_PRICE = 10
 
@@ -33,6 +34,7 @@ var motion = Vector2(0,0)
 var grounded = true
 var speed = WALK_SPEED
 var claw_payload = null
+var claw_payload_food_value = 0
 var parent
 
 var routes = []
@@ -68,6 +70,7 @@ func _ready():
 		$Visuals/FieldOfView.monitorable = false
 		$Visuals/FieldOfView.monitoring = false
 		$Visuals/FieldOfView.hide()
+		info("Press [SPACE] to flap", null, null, 0.4)
 	set_physics_process(true)
 	
 func restart():
@@ -103,16 +106,16 @@ func _physics_process(delta):
 	
 		motion.y += GRAVITY * delta
 	
-	if state != STATE_DEAD:
+	if state != STATE_DEAD and state != STATE_WON:
 		if controlled:
 			controlled_process(delta)	
 		
 			if state != STATE_SITTING:
 				energy -= delta
 				energy_bar.value = round(energy)
-				if energy <= 10:
+				if energy <= 20:
 					if warn_cooldown <= 0:
-						info("critical energy level, eat!", "#aa0000", null, 3)
+						info("critical energy level, eat!", "#aa0000", null, 0.3)
 						warn_cooldown = 5
 					else:
 						warn_cooldown -= delta
@@ -122,6 +125,11 @@ func _physics_process(delta):
 		else:
 			ai_process(delta)
 	else:
+		if Input.is_key_pressed(KEY_R):
+			get_tree().change_scene("res://Scenes/Game.tscn")
+		if Input.is_key_pressed(KEY_Q):
+			get_tree().change_scene("res://Scenes/Menu.tscn")
+			
 		motion.x = lerp(motion.x, 0, 0.2)
 
 	if state != STATE_PATROLLING and state != STATE_RETURNING:
@@ -272,6 +280,11 @@ func change_state(target):
 			anim.play("AttackRight")
 		else:
 			anim.play("AttackLeft")
+			
+	if target == STATE_WON:
+		state = STATE_WON
+		get_node("/root/Game/UI/Control/Win").show()
+		
 	
 	if target == STATE_DEAD:
 		state = STATE_DEAD
@@ -284,7 +297,9 @@ func change_state(target):
 			spawner.local = true
 			spawner.worms_only = true
 			game.add_child(spawner)
-	
+		else:
+			get_node("/root/Game/UI/Control/Lose").show()
+		
 func is_alive():
 	return state != STATE_DEAD
 	
@@ -313,10 +328,14 @@ func on_nest_owned():
 			
 	get_node("/root/Game/UI/Control/Nests").text = "CONTROLLED NESTS: " + str(nests_owned) + "/" + str(total_nests)
 	
+	if nests_owned == total_nests:
+		change_state(STATE_WON)
+	
 func initiate_as_offspring():
 	scale = Vector2(0.5, 0.5)
 	energy = 50
 	hit_force = 25
+	$Timer.start()
 		
 func hit(hp):
 	if state != STATE_DEAD:
@@ -329,21 +348,23 @@ func hit(hp):
 			info("- " + str(hp) + " energy")
 							
 		
-		print("HIT: .. hp remaining: " + str(energy))
 		if energy <= 0:
 			print("DEAD....")
 			if controlled:
-				info("You are dead..", "#aa0000", position + Vector2(0, 30))
+				info("You are dead..  [R] try again", "#aa0000", position + Vector2(0, 30), 0.1)
 			else:
-				info("Enemy defeated", "#00aa00", position + Vector2(0, 30))
+				info("Enemy defeated", "#00aa00", position + Vector2(0, 30), 0.5)
 			change_state(STATE_DEAD)
 	
 func store_food():
 	if state != STATE_DEAD:
-		food_amount += claw_payload.food_value
-		info("+ " + str(claw_payload.food_value) + " food")
-		claw_payload.queue_free()
-		claw_payload = null
+		food_amount += claw_payload_food_value
+		info("+ " + str(claw_payload_food_value) + " food")
+		claw_payload_food_value = 0
+		var wr = weakref(claw_payload)
+		if wr.get_ref() and claw_payload:
+			claw_payload.queue_free()
+			claw_payload = null
 		get_node("/root/Game/UI/Control/Food").text = "FOOD: " + str(food_amount)
 	
 func eat():
@@ -389,6 +410,7 @@ func lay_egg():
 func grab(body):
 	if state != STATE_DEAD:
 		claw_payload = body
+		claw_payload_food_value = body.food_value
 		get_node("/root/Game/Prey").remove_child(body)
 		$Visuals/Claw.add_child(body)
 		body.die()
@@ -404,17 +426,17 @@ func _on_Beak_area_entered(area):
 	if state != STATE_SITTING and state != STATE_DEAD and state != STATE_PATROLLING:
 		if area.is_in_group("HitArea"):
 			var bird = area.get_parent()
-			if bird != self:
+			if bird != self and bird.parent != self and parent != bird:
 				area.get_parent().hit(hit_force)
 			
 		if area.is_in_group("Prey"):
 			area.die()
 
 func _on_Field_of_vision_body_entered(body):
-	if state != STATE_DEAD and !controlled and parent != self and body.is_in_group("Player"):
+	if state != STATE_DEAD and !controlled and is_in_group("Enemy") and body.is_in_group("Player"):
 		attack(body)
 		
-	if state != STATE_DEAD and !controlled and parent == self and body.is_in_group("Enemy"):
+	if state != STATE_DEAD and !controlled and is_in_group("Player") and body.is_in_group("Enemy"):
 		attack(body)
 
 func tween_to(object, time):
@@ -437,13 +459,11 @@ func tween_to(object, time):
 func return_to_nest():
 	if home_nest:
 		anim.play("Patrol")
-		print("tweening to start position")
 		tween_to(start_position, 2)
 	else:
 		print("NEMAM HOME NEST, kam se vratit?")
 		
 func attack(player):
-	print("Oh yea!")
 	#var gpos = global_position
 	#get_parent().remove_child(self)
 	#game.add_child(self)
@@ -472,3 +492,8 @@ func _on_Tween_tween_completed(object, key):
 		$PathPickTimer.start()
 		
 	
+# Birdie brigs food
+func _on_Timer_timeout():
+	parent.food_amount += 2
+	get_node("/root/Game/UI/Control/Food").text = "FOOD: " + str(parent.food_amount)
+	info("+ 2 food (by little birdie)", null, parent.position, 0.8)

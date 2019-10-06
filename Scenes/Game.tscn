@@ -1,40 +1,80 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=41 format=2]
 
 [ext_resource path="res://Assets/bg_grayscale.png" type="Texture" id=1]
 [ext_resource path="res://Assets/landscape.png" type="Texture" id=2]
 [ext_resource path="res://Components/Moon/Moon.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Assets/foreground01.png" type="Texture" id=4]
-[ext_resource path="res://Assets/foreground02.png" type="Texture" id=5]
-[ext_resource path="res://Assets/foreground03.png" type="Texture" id=6]
-[ext_resource path="res://Components/Nest/Nest.tscn" type="PackedScene" id=7]
-[ext_resource path="res://Components/Bird/Bird.tscn" type="PackedScene" id=8]
-[ext_resource path="res://Components/Worm/Worm.tscn" type="PackedScene" id=9]
-[ext_resource path="res://Components/PreySpawner/PreySpawner.tscn" type="PackedScene" id=10]
-[ext_resource path="res://Assets/WCManoNegraBta.otf" type="DynamicFontData" id=11]
-[ext_resource path="res://Components/InfoText/Info.tscn" type="PackedScene" id=12]
+[ext_resource path="res://Assets/snowflake.png" type="Texture" id=4]
+[ext_resource path="res://Assets/foreground01.png" type="Texture" id=5]
+[ext_resource path="res://Assets/foreground02.png" type="Texture" id=6]
+[ext_resource path="res://Assets/foreground03.png" type="Texture" id=7]
+[ext_resource path="res://Components/Nest/Nest.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Components/PreyDestroyer/PreyDestroyer.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Components/Boundary/Boundary.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Assets/tree02.png" type="Texture" id=11]
+[ext_resource path="res://Assets/tree03.png" type="Texture" id=12]
+[ext_resource path="res://Assets/tree01.png" type="Texture" id=13]
+[ext_resource path="res://Assets/house.png" type="Texture" id=14]
+[ext_resource path="res://Assets/rock.png" type="Texture" id=15]
+[ext_resource path="res://Components/Bird/Bird.tscn" type="PackedScene" id=16]
+[ext_resource path="res://Components/Worm/Worm.tscn" type="PackedScene" id=17]
+[ext_resource path="res://Components/Mouse/Mouse.tscn" type="PackedScene" id=18]
+[ext_resource path="res://Components/PreySpawner/PreySpawner.tscn" type="PackedScene" id=19]
+[ext_resource path="res://Assets/WCManoNegraBta.otf" type="DynamicFontData" id=20]
+[ext_resource path="res://Assets/WCManoNegraBoldBta.otf" type="DynamicFontData" id=21]
+[ext_resource path="res://Assets/bebas.otf" type="DynamicFontData" id=22]
+[ext_resource path="res://Components/InfoText/Info.tscn" type="PackedScene" id=23]
 
-[sub_resource type="PhysicsMaterial" id=7]
-friction = 0.0
-rough = true
+[sub_resource type="StyleBoxFlat" id=12]
+bg_color = Color( 0, 0, 0, 1 )
+
+[sub_resource type="Gradient" id=10]
+offsets = PoolRealArray( 0, 0, 0.357616, 0.688742, 1 )
+colors = PoolColorArray( 1, 1, 1, 0, 0, 0, 0, 1, 0.359659, 0.359659, 0.359659, 1, 0.582781, 0.582781, 0.582781, 1, 1, 1, 1, 0 )
 
 [sub_resource type="RectangleShape2D" id=8]
 extents = Vector2( 156.051, 38.5162 )
 
+[sub_resource type="RectangleShape2D" id=11]
+extents = Vector2( 258.521, 10 )
+
+[sub_resource type="RectangleShape2D" id=9]
+extents = Vector2( 3973.5, 167.258 )
+
+[sub_resource type="Curve2D" id=16]
+_data = {
+"points": PoolVector2Array( 0, 0, 0, 0, 235.546, -685.577, 0, 0, 0, 0, -40.7123, -728.588, 0, 0, 0, 0, -481.233, -773.128, 0, 0, 0, 0, -777.048, -707.391, 0, 0, 0, 0, -1028.04, -668.546, 0, 0, 0, 0, -1285.02, -584.881, 0, 0, 0, 0, -1120.67, -462.372, 0, 0, 0, 0, -827.845, -495.24, 0, 0, 0, 0, -529.042, -626.714, 0, 0, 0, 0, -269.082, -880.697, 0, 0, 0, 0, 62.3939, -829.787, 0, 0, 0, 0, 246.165, -697.472 )
+}
+
+[sub_resource type="Curve2D" id=17]
+_data = {
+"points": PoolVector2Array( 0, 0, 0, 0, 246.337, -699.391, 0, 0, 0, 0, 400.905, -770.266, 0, 0, 0, 0, 510.284, -913.159, 0, 0, 0, 0, 601.601, -1432.65, 0, 0, 0, 0, 490.514, -1601.34, 0, 0, 0, 0, -248.011, -1623.97, 0, 0, 0, 0, -457.843, -1432.65, 0, 0, 0, 0, -266.526, -1286.6, 0, 0, 0, 0, 97.5938, -1148.76, 0, 0, 0, 0, 214.853, -934.819, 0, 0, 0, 0, 247.767, -712.644 )
+}
+
 [sub_resource type="Curve2D" id=2]
 _data = {
-"points": PoolVector2Array( 0, 0, 0, 0, 1415.17, -259.7, 0, 0, 0, 0, 1001.28, -349.075, 0, 0, 0, 0, 849.026, -354.067, 0, 0, 0, 0, 629.383, -340.755, 0, 0, 0, 0, 270.799, -294.997, 0, 0, 0, 0, 31.1888, -241.75, 0, 0, 0, 0, -166.823, -213.462, 0, 0, 0, 0, -349.692, -436.766, 0, 0, 0, 0, -163.994, -716.312, 0, 0, 0, 0, 256.989, -772.055, 0, 0, 0, 0, 739.871, -895.854, 0, 0, 0, 0, 992.793, -815.151, 0, 0, 0, 0, 1264.85, -674.547, 0, 0, 0, 0, 1390.48, -556.405, 0, 0, 0, 0, 1434.58, -419.96, 0, 0, 0, 0, 1461.3, -296.069 )
+"points": PoolVector2Array( 0, 0, 0, 0, 1457.21, -281.809, 0, 0, 0, 0, 1390.03, -146.135, 0, 0, 0, 0, 1297.46, -12.4182, 0, 0, 0, 0, 1169.91, 294.101, 0, 0, 0, 0, 818.134, 333.187, 0, 0, 0, 0, 495.158, 281.758, 0, 0, 0, 0, 207.154, -80.3049, 0, 0, 0, 0, 674.969, -737.342, 0, 0, 0, 0, 1390.48, -556.405, 0, 0, 0, 0, 1434.58, -419.96, 0, 0, 0, 0, 1461.3, -296.069 )
 }
 
 [sub_resource type="Curve2D" id=6]
 _data = {
-"points": PoolVector2Array( 0, 0, 0, 0, 1514.17, -260.63, 0, 0, 0, 0, 1742.14, -270.387, 0, 0, 0, 0, 2473.25, -479.021, 0, 0, 0, 0, 2757.76, -603.375, 0, 0, 0, 0, 3544.75, -664.501, 0, 0, 0, 0, 4163.65, -911.55, 0, 0, 0, 0, 3941.68, -1063.59, 0, 0, 0, 0, 3659.36, -1134.4, 0, 0, 0, 0, 3354.45, -1178.91, 0, 0, 0, 0, 2827.54, -1182.45, 0, 0, 0, 0, 2017.13, -961.578, 0, 0, 0, 0, 1791.82, -670.625, 0, 0, 0, 0, 1635.7, -419.589, 0, 0, 0, 0, 1458.29, -282.983 )
+"points": PoolVector2Array( 0, 0, 0, 0, 1514.17, -260.63, 0, 0, 0, 0, 1780.44, -111.096, 0, 0, 0, 0, 2371.41, 384.044, 0, 0, 0, 0, 2309.3, 746.082, 0, 0, 0, 0, 2557.75, 753.18, 0, 0, 0, 0, 2860.16, 410.309, 0, 0, 0, 0, 3992.42, 321.574, 0, 0, 0, 0, 3433.39, -272.948, 0, 0, 0, 0, 2941.8, -558.674, 0, 0, 0, 0, 2505.22, -679.354, 0, 0, 0, 0, 2097.04, -698.875, 0, 0, 0, 0, 1791.82, -670.625, 0, 0, 0, 0, 1635.7, -419.589, 0, 0, 0, 0, 1458.29, -282.983 )
+}
+
+[sub_resource type="Curve2D" id=18]
+_data = {
+"points": PoolVector2Array( 0, 0, 0, 0, 6320.93, -594.478, 0, 0, 0, 0, 5996.31, -521.018, 0, 0, 0, 0, 5471.78, -175.408, 0, 0, 0, 0, 5122.63, -145.309, 0, 0, 0, 0, 4554.76, -301.824, 0, 0, 0, 0, 4424.33, -452.319, 0, 0, 0, 0, 4422.33, -767.355, 0, 0, 0, 0, 4719.3, -897.785, 0, 0, 0, 0, 5008.25, -1076.37, 0, 0, 0, 0, 5640.33, -935.91, 0, 0, 0, 0, 6111.88, -727.223, 0, 0, 0, 0, 6322.72, -606.044, 0, 0, 0, 0, 6356.81, -593.528, 0, 0, 0, 0, 8059.24, 118.475, 0, 0, 0, 0, 9011.41, 316.136, 0, 0, 0, 0, 9940.72, 498.919, 0, 0, 0, 0, 10231.9, 454.286, 0, 0, 0, 0, 10718.6, 320.387, 0, 0, 0, 0, 11001.3, 24.9586, 0, 0, 0, 0, 10903.5, -215.21, 0, 0, 0, 0, 10542.2, -421.372, 0, 0, 0, 0, 9849.33, -521.265, 0, 0, 0, 0, 8846.15, -640.286, 0, 0, 0, 0, 7883.35, -638.161, 0, 0, 0, 0, 6361.58, -602.029, 0, 0, 0, 0, 6335.22, -586.727, 0, 0, 0, 0, 6192.82, -471.957, 0, 0, 0, 0, 5663.6, -59.6323, 0, 0, 0, 0, 5455.31, 195.414, 0, 0, 0, 0, 5593.46, 388.823, 0, 0, 0, 0, 5971.78, 490.842, 0, 0, 0, 0, 6679.53, 492.967, 0, 0, 0, 0, 7618.12, 450.46, 0, 0, 0, 0, 7809.41, 233.671, 0, 0, 0, 0, 7845.54, -386.941, 0, 0, 0, 0, 7786.03, -899.159, 0, 0, 0, 0, 7547.98, -1228.59, 0, 0, 0, 0, 7127.16, -1232.84, 0, 0, 0, 0, 6776.47, -1020.31, 0, 0, 0, 0, 6364.15, -610.107 )
+}
+
+[sub_resource type="Curve2D" id=19]
+_data = {
+"points": PoolVector2Array( 0, 0, 0, 0, 10332.7, 109.008, 0, 0, 0, 0, 10164.7, 165.531, 0, 0, 0, 0, 10018, 168.587, 0, 0, 0, 0, 9891.22, 142.616, 0, 0, 0, 0, 9817.9, 70.8163, 0, 0, 0, 0, 9833.17, -10.1499, 0, 0, 0, 0, 9875.95, -54.4521, 0, 0, 0, 0, 9979.83, -75.8394, 0, 0, 0, 0, 10205.9, -94.1714, 0, 0, 0, 0, 10447.3, -95.699, 0, 0, 0, 0, 10679.5, -77.3671, 0, 0, 0, 0, 10760.5, 34.1523, 0, 0, 0, 0, 10728.4, 115.118, 0, 0, 0, 0, 10528.3, 127.34, 0, 0, 0, 0, 10355.6, 107.48 )
 }
 
 [sub_resource type="DynamicFont" id=3]
 size = 30
 use_mipmaps = true
 use_filter = true
-font_data = ExtResource( 11 )
+font_data = ExtResource( 20 )
 
 [sub_resource type="StyleBoxFlat" id=4]
 bg_color = Color( 1, 1, 1, 1 )
@@ -55,16 +95,30 @@ expand_margin_right = 3.0
 expand_margin_top = 3.0
 expand_margin_bottom = 3.0
 
+[sub_resource type="StyleBoxFlat" id=13]
+bg_color = Color( 0, 0, 0, 1 )
+
+[sub_resource type="DynamicFont" id=14]
+size = 40
+use_mipmaps = true
+use_filter = true
+font_data = ExtResource( 21 )
+
+[sub_resource type="DynamicFont" id=15]
+size = 30
+outline_color = Color( 0.188235, 0.188235, 0.188235, 1 )
+font_data = ExtResource( 22 )
+
 [node name="Game" type="Node2D"]
 
 [node name="Environment" type="Node2D" parent="."]
 
 [node name="TextureRect" type="TextureRect" parent="Environment"]
-modulate = Color( 0.435294, 0.454902, 0.513726, 1 )
-margin_left = -9558.23
-margin_top = -19227.9
-margin_right = -9256.23
-margin_bottom = -18174.9
+modulate = Color( 0.74902, 0.74902, 0.74902, 1 )
+margin_left = -10500.8
+margin_top = -18799.0
+margin_right = -10198.8
+margin_bottom = -17746.0
 rect_scale = Vector2( 171.649, 19.0778 )
 texture = ExtResource( 1 )
 stretch_mode = 2
@@ -75,60 +129,228 @@ position = Vector2( 2228.53, 147.717 )
 scale = Vector2( 1.80229, 2.51028 )
 texture = ExtResource( 2 )
 
+[node name="Landscape2" type="Sprite" parent="Environment"]
+modulate = Color( 0.45098, 0.47451, 0.486275, 1 )
+position = Vector2( 7825.12, 212.143 )
+scale = Vector2( 1.80229, 2.51028 )
+texture = ExtResource( 2 )
+
+[node name="Panel" type="Panel" parent="Environment"]
+margin_left = 5601.0
+margin_top = 410.021
+margin_right = 12278.0
+margin_bottom = 1505.02
+custom_styles/panel = SubResource( 12 )
+
 [node name="Moon" parent="Environment" instance=ExtResource( 3 )]
-position = Vector2( 4505.67, -805.121 )
+position = Vector2( 3391.54, -582.904 )
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="Environment"]
+position = Vector2( 430.07, -2097.58 )
+emitting = false
+amount = 50
+lifetime = 10.0
+preprocess = 1.0
+randomness = 1.0
+texture = ExtResource( 4 )
+emission_shape = 2
+emission_rect_extents = Vector2( 6000, 700 )
+gravity = Vector2( -10, 30 )
+scale_amount = 0.2
+color_ramp = SubResource( 10 )
 
 [node name="Foreground01" type="Sprite" parent="Environment"]
 position = Vector2( 44.7517, 396.374 )
-texture = ExtResource( 4 )
-
-[node name="StaticBody2D" type="StaticBody2D" parent="Environment/Foreground01"]
-physics_material_override = SubResource( 7 )
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Environment/Foreground01/StaticBody2D"]
-position = Vector2( -57.0342, -21.8104 )
-polygon = PoolVector2Array( -1069.88, -1162.78, -1401.55, -1164.82, -1405.09, -1221.46, -1599.27, -1215.7, -1725.15, 186.236, -1542.19, 444.583, 1127.22, 1118.44, 1836.54, 992.338, 1820.78, -201.687, 1667.09, -225.331, 1525.23, -181.984, 1458.24, -40.1193, 1430.65, 160.855, 1363.66, 259.372, 1379.43, 401.237, 1383.37, 614.033, 1311.34, 813.989, 1079.82, 819.373, 1003.09, 649.772, 801.186, 462.672, 775.611, 334.798, 670.62, 317.299, 630.697, 192.381, 752.858, 156.915, 811.967, -138.636, 792.264, -248.975, 681.925, -296.263, 617.987, -200.418, 174.625, -210.729, 155.738, -234.603, 138.716, -401.244, 282.959, -629.703, 345.673, -634.183, 306.252, -650.31, 252.497, -644.038, 227.412, -614.473, 198.742, -615.369, 174.552, -545.487, 170.969, -509.65, 128.86, -471.126, 100.191, -595.658, 60.7706, -635.079, 58.0829, -692.418, 122.589, -671.812, 120.797, -722.879, 90.3359, -752.444, 28.5175, -745.277, 24.038, -588.491, 63.4584, -520.401, -40.4683, -559.822, -78.0969, -649.414, -151.562, -664.644, -196.358, -652.101, -91.5356, -626.12, -63.7622, -523.089, 44.644, -453.207, 25.8297, -228.332, -158.73, -219.372, -337.913, -174.576, -1031.35, -176.368, -1036.73, -425.434, -921.157, -363.615, -1038.52, -465.75, -1228.46, -475.605, -1223.08, -880.561, -1084.21, -878.769, -1088.69, -914.606, -1224.87, -919.085, -1223.08, -1109.02, -1129.91, -1110.81, -1131.7, -1035.55, -1111.09, -1035.55, -1107.51, -1119.77, -1072.57, -1119.77 )
+texture = ExtResource( 5 )
 
 [node name="Foreground02" type="Sprite" parent="Environment"]
+editor/display_folded = true
 position = Vector2( 3810.19, 451.932 )
-texture = ExtResource( 5 )
+texture = ExtResource( 6 )
 
 [node name="StaticBody2D" type="StaticBody2D" parent="Environment/Foreground02"]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Environment/Foreground02/StaticBody2D"]
-polygon = PoolVector2Array( -2033.96, -268.42, -1895.85, -272.996, -1679.14, -192.234, -1287.44, -201.656, -1006.12, -1.09601, -736.912, 11.0184, -575.386, -18.5945, -92.1575, -29.3629, 173.013, -15.9025, 655.703, -29.9014, 1019.13, -105.28, 1328.19, -129.508, 1836.18, -85.6276, 1946.56, 88.0118, 1888.95, 2104.65, -1961.27, 1954.97 )
+position = Vector2( 22.2749, -2.02493 )
+polygon = PoolVector2Array( -2380.49, -135.845, -1897.15, -106.388, -1565.05, -114.488, -1006.12, -1.09601, 6662.91, 5.6232, 2721.13, 476.225, -2297.6, 1182, -5545.21, 835.021, -5555.24, -180.314, -3043.3, -181.572, -3065.55, 61.2786, -3190.11, 107.089, -3223.49, 168.601, -3167.68, 254.703, -3053.13, 268.283, -3010.87, 433.871, -2825.46, 556.75, -2716.67, 738.439, -2524.1, 739.527, -2456.04, 194.926 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/Foreground02/StaticBody2D"]
 position = Vector2( 57.8796, -658.215 )
 shape = SubResource( 8 )
 one_way_collision = true
 
+[node name="CollisionShape2D11" type="CollisionShape2D" parent="Environment/Foreground02/StaticBody2D"]
+position = Vector2( -7971.22, -146.575 )
+shape = SubResource( 8 )
+one_way_collision = true
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Environment/Foreground02/StaticBody2D"]
+position = Vector2( -5138.52, -1204.79 )
+shape = SubResource( 11 )
+one_way_collision = true
+
+[node name="CollisionShape2D9" type="CollisionShape2D" parent="Environment/Foreground02/StaticBody2D"]
+position = Vector2( -9191.85, -63.5574 )
+shape = SubResource( 11 )
+one_way_collision = true
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Environment/Foreground02/StaticBody2D"]
+position = Vector2( -5150.27, -967.893 )
+shape = SubResource( 11 )
+one_way_collision = true
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="Environment/Foreground02/StaticBody2D"]
+position = Vector2( -5104.16, -525.752 )
+shape = SubResource( 11 )
+one_way_collision = true
+
+[node name="CollisionShape2D5" type="CollisionShape2D" parent="Environment/Foreground02/StaticBody2D"]
+position = Vector2( -6521, -1051.08 )
+shape = SubResource( 11 )
+one_way_collision = true
+
+[node name="CollisionShape2D6" type="CollisionShape2D" parent="Environment/Foreground02/StaticBody2D"]
+position = Vector2( -6184.47, 262.324 )
+shape = SubResource( 11 )
+one_way_collision = true
+
+[node name="CollisionShape2D7" type="CollisionShape2D" parent="Environment/Foreground02/StaticBody2D"]
+position = Vector2( -8805.3, -1056.45 )
+shape = SubResource( 11 )
+one_way_collision = true
+
+[node name="CollisionShape2D8" type="CollisionShape2D" parent="Environment/Foreground02/StaticBody2D"]
+position = Vector2( -9064.67, -1034.37 )
+shape = SubResource( 11 )
+one_way_collision = true
+
 [node name="Foreground03" type="Sprite" parent="Environment"]
+editor/display_folded = true
 position = Vector2( -4384.92, -358.409 )
-texture = ExtResource( 6 )
+texture = ExtResource( 7 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Environment/Foreground03"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/Foreground03/StaticBody2D"]
+position = Vector2( -1292.26, 1420.42 )
+shape = SubResource( 9 )
 
 [node name="Nests" type="Node2D" parent="Environment"]
+editor/display_folded = true
 
-[node name="Nest" parent="Environment/Nests" instance=ExtResource( 7 )]
+[node name="Nest" parent="Environment/Nests" instance=ExtResource( 8 )]
 position = Vector2( -1163.21, -798.2 )
 
-[node name="Nest2" parent="Environment/Nests" instance=ExtResource( 7 )]
+[node name="Nest6" parent="Environment/Nests" instance=ExtResource( 8 )]
+position = Vector2( -7394.03, 509.169 )
+
+[node name="Nest7" parent="Environment/Nests" instance=ExtResource( 8 )]
+position = Vector2( -4041.4, 210.732 )
+
+[node name="Nest2" parent="Environment/Nests" instance=ExtResource( 8 )]
 self_modulate = Color( 0.388235, 0.388235, 0.388235, 1 )
 position = Vector2( 61.2227, -380.789 )
 
-[node name="Nest3" parent="Environment/Nests" instance=ExtResource( 7 )]
+[node name="Nest3" parent="Environment/Nests" instance=ExtResource( 8 )]
 self_modulate = Color( 0.388235, 0.388235, 0.388235, 1 )
 position = Vector2( 731.422, 662.316 )
 
-[node name="Nest4" parent="Environment/Nests" instance=ExtResource( 7 )]
+[node name="Nest4" parent="Environment/Nests" instance=ExtResource( 8 )]
 self_modulate = Color( 0.388235, 0.388235, 0.388235, 1 )
 position = Vector2( 4941.65, -715.889 )
 
+[node name="Nest5" parent="Environment/Nests" instance=ExtResource( 8 )]
+self_modulate = Color( 0.388235, 0.388235, 0.388235, 1 )
+position = Vector2( 8950.47, -22.5985 )
+
+[node name="PreyDestroyer" parent="Environment" instance=ExtResource( 9 )]
+
+[node name="PreyDestroyer2" parent="Environment" instance=ExtResource( 9 )]
+position = Vector2( -1733.41, 273.978 )
+
+[node name="PreyDestroyer4" parent="Environment" instance=ExtResource( 9 )]
+position = Vector2( 2753.84, 407.672 )
+
+[node name="PreyDestroyer3" parent="Environment" instance=ExtResource( 9 )]
+position = Vector2( 10362.2, 412.533 )
+
+[node name="Boundary" parent="Environment" instance=ExtResource( 10 )]
+position = Vector2( -37.667, -6271.91 )
+scale = Vector2( 8.76, 1 )
+
+[node name="Boundary2" parent="Environment" instance=ExtResource( 10 )]
+position = Vector2( 519.664, 2473.9 )
+scale = Vector2( 8.76, 1 )
+
+[node name="Boundary3" parent="Environment" instance=ExtResource( 10 )]
+position = Vector2( 10408.7, -2575.42 )
+rotation = 1.5708
+scale = Vector2( 8.76, 1 )
+
+[node name="Boundary4" parent="Environment" instance=ExtResource( 10 )]
+position = Vector2( -9026.42, -3242.31 )
+rotation = 1.5708
+scale = Vector2( 8.76, 1 )
+
+[node name="Sprite" type="Sprite" parent="Environment"]
+position = Vector2( 8754.62, 164.165 )
+texture = ExtResource( 11 )
+
+[node name="Sprite2" type="Sprite" parent="Environment"]
+position = Vector2( 7089.85, 16.2161 )
+texture = ExtResource( 12 )
+
+[node name="Sprite4" type="Sprite" parent="Environment"]
+position = Vector2( 10007.2, -262.235 )
+rotation = -0.290907
+scale = Vector2( -1.78237, 2.4 )
+texture = ExtResource( 11 )
+
+[node name="Sprite3" type="Sprite" parent="Environment"]
+modulate = Color( 0.752941, 0.752941, 0.752941, 0.215686 )
+position = Vector2( 7613.13, -293.476 )
+texture = ExtResource( 13 )
+
+[node name="Panel2" type="Panel" parent="Environment"]
+margin_left = -13402.9
+margin_top = 879.013
+margin_right = -6725.89
+margin_bottom = 1974.01
+custom_styles/panel = SubResource( 12 )
+
+[node name="Panel3" type="Panel" parent="Environment"]
+margin_left = -5657.3
+margin_top = 382.172
+margin_right = -5127.3
+margin_bottom = 1032.17
+custom_styles/panel = SubResource( 12 )
+
+[node name="Sprite5" type="Sprite" parent="Environment"]
+visible = false
+position = Vector2( -7872.63, -322.018 )
+scale = Vector2( 1.32447, 1.25201 )
+texture = ExtResource( 14 )
+
+[node name="Sprite6" type="Sprite" parent="Environment"]
+position = Vector2( 11057.5, -66.5674 )
+texture = ExtResource( 15 )
+
+[node name="Sprite7" type="Sprite" parent="Environment"]
+position = Vector2( -8862.72, -19.2246 )
+scale = Vector2( -1.5404, 1 )
+texture = ExtResource( 15 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Environment"]
+position = Vector2( -8305.1, -929.779 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Environment/StaticBody2D"]
+polygon = PoolVector2Array( -695.109, -470.685, -522.107, -453.065, -219.354, -320.11, -110.427, -108.663, 145.872, -110.265, 243.586, 33.9034, 309.263, 146.034, 336.495, 588.15, 277.226, 733.92, 410.181, 857.264, 513.965, 1016.29, 622.895, 1018.72, 811.613, 1268.95, 843.65, 1499.61, 1136.79, 1501.22, 1279.36, 1603.74, 1423.85, 1809.42, 1587.24, 1807.81, 1492.83, 1947.18, -224.205, 1936.24, -1029.52, 1906.9, -1058.05, -440.577 )
+
 [node name="Player" parent="." groups=[
 "Player",
-] instance=ExtResource( 8 )]
+] instance=ExtResource( 16 )]
 editor/display_folded = true
-position = Vector2( 333.4, 97.1977 )
+position = Vector2( -7759.86, -17.0839 )
 scale = Vector2( 0.8, 0.8 )
 controlled = true
 
@@ -138,47 +360,188 @@ current = true
 zoom = Vector2( 1.6, 1.6 )
 smoothing_enabled = true
 
-[node name="Enemy" parent="." groups=[
+[node name="Enemy7" parent="." groups=[
 "Enemy",
-] instance=ExtResource( 8 )]
+] instance=ExtResource( 16 )]
+position = Vector2( 8917.09, -43.5294 )
+scale = Vector2( 0.8, 0.8 )
+route_code = "e6"
+
+[node name="Enemy6" parent="." groups=[
+"Enemy",
+] instance=ExtResource( 16 )]
+position = Vector2( 4865.97, -732.206 )
+scale = Vector2( 0.8, 0.8 )
+route_code = "e5"
+
+[node name="Enemy5" parent="." groups=[
+"Enemy",
+] instance=ExtResource( 16 )]
+position = Vector2( 4959.47, -732.541 )
+scale = Vector2( 0.8, 0.8 )
+route_code = "e5"
+
+[node name="Enemy4" parent="." groups=[
+"Enemy",
+] instance=ExtResource( 16 )]
 position = Vector2( 54.9307, -443.968 )
+scale = Vector2( 0.8, 0.8 )
+route_code = "e4"
+
+[node name="Enemy3" parent="." groups=[
+"Enemy",
+] instance=ExtResource( 16 )]
+position = Vector2( -1188.23, -819.573 )
+scale = Vector2( 0.8, 0.8 )
+route_code = "e3"
+
+[node name="Enemy2" parent="." groups=[
+"Enemy",
+] instance=ExtResource( 16 )]
+position = Vector2( -4062.08, 192.688 )
+scale = Vector2( 0.8, 0.8 )
+route_code = "e2"
+
+[node name="Enemy1" parent="." groups=[
+"Enemy",
+] instance=ExtResource( 16 )]
+position = Vector2( -5473.64, -615.943 )
 scale = Vector2( 0.8, 0.8 )
 route_code = "e1"
 
 [node name="Routes" type="Node2D" parent="."]
-editor/display_folded = true
 position = Vector2( -1401.27, -135.456 )
 
 [node name="e1" type="Node2D" parent="Routes"]
 
-[node name="r1" type="Path2D" parent="Routes/e1"]
-editor/display_folded = true
+[node name="e2" type="Node2D" parent="Routes"]
+
+[node name="e3" type="Node2D" parent="Routes"]
+
+[node name="r1" type="Path2D" parent="Routes/e3"]
+curve = SubResource( 16 )
+
+[node name="PathFollow" type="PathFollow2D" parent="Routes/e3/r1"]
+position = Vector2( 235.546, -685.577 )
+rotate = false
+loop = false
+
+[node name="r2" type="Path2D" parent="Routes/e3"]
+curve = SubResource( 17 )
+
+[node name="PathFollow" type="PathFollow2D" parent="Routes/e3/r2"]
+position = Vector2( 246.337, -699.391 )
+rotate = false
+loop = false
+
+[node name="e4" type="Node2D" parent="Routes"]
+
+[node name="r1" type="Path2D" parent="Routes/e4"]
 position = Vector2( -10.8157, 3.32788 )
 curve = SubResource( 2 )
 
-[node name="PathFollow" type="PathFollow2D" parent="Routes/e1/r1"]
+[node name="PathFollow" type="PathFollow2D" parent="Routes/e4/r1"]
 position = Vector2( 1415.17, -259.7 )
 rotate = false
 loop = false
 
-[node name="r2" type="Path2D" parent="Routes/e1"]
-editor/display_folded = true
+[node name="r2" type="Path2D" parent="Routes/e4"]
 curve = SubResource( 6 )
 
-[node name="PathFollow" type="PathFollow2D" parent="Routes/e1/r2"]
+[node name="PathFollow" type="PathFollow2D" parent="Routes/e4/r2"]
 position = Vector2( 1514.17, -260.63 )
+rotate = false
+loop = false
+
+[node name="e5" type="Node2D" parent="Routes"]
+
+[node name="r1" type="Path2D" parent="Routes/e5"]
+curve = SubResource( 18 )
+
+[node name="PathFollow" type="PathFollow2D" parent="Routes/e5/r1"]
+position = Vector2( 6320.93, -594.478 )
+rotate = false
+loop = false
+
+[node name="r2" type="Path2D" parent="Routes/e5"]
+curve = SubResource( 18 )
+
+[node name="PathFollow" type="PathFollow2D" parent="Routes/e5/r2"]
+position = Vector2( 6320.93, -594.478 )
+rotate = false
+loop = false
+
+[node name="r3" type="Path2D" parent="Routes/e5"]
+curve = SubResource( 18 )
+
+[node name="PathFollow" type="PathFollow2D" parent="Routes/e5/r3"]
+position = Vector2( 6320.93, -594.478 )
+rotate = false
+loop = false
+
+[node name="e6" type="Node2D" parent="Routes"]
+
+[node name="r1" type="Path2D" parent="Routes/e6"]
+curve = SubResource( 19 )
+
+[node name="PathFollow" type="PathFollow2D" parent="Routes/e6/r1"]
+position = Vector2( 10332.7, 109.008 )
 rotate = false
 loop = false
 
 [node name="Prey" type="Node2D" parent="."]
 editor/display_folded = true
 
-[node name="Worm2" parent="Prey" instance=ExtResource( 9 )]
+[node name="Worm2" parent="Prey" instance=ExtResource( 17 )]
 position = Vector2( 2270.25, 256.857 )
 
-[node name="Worm" parent="Prey" instance=ExtResource( 9 )]
+[node name="Worm5" parent="Prey" instance=ExtResource( 17 )]
+position = Vector2( -6366.61, 883.819 )
 
-[node name="PreySpawner" parent="." instance=ExtResource( 10 )]
+[node name="Worm6" parent="Prey" instance=ExtResource( 17 )]
+position = Vector2( -6366.61, 883.819 )
+
+[node name="Worm7" parent="Prey" instance=ExtResource( 17 )]
+position = Vector2( -6366.61, 883.819 )
+
+[node name="Worm8" parent="Prey" instance=ExtResource( 17 )]
+position = Vector2( -6366.61, 883.819 )
+
+[node name="Worm9" parent="Prey" instance=ExtResource( 17 )]
+position = Vector2( -6366.61, 883.819 )
+
+[node name="Worm" parent="Prey" instance=ExtResource( 17 )]
+position = Vector2( 3288.47, 437.556 )
+
+[node name="Worm3" parent="Prey" instance=ExtResource( 17 )]
+position = Vector2( 3288.47, 437.556 )
+
+[node name="Worm4" parent="Prey" instance=ExtResource( 17 )]
+position = Vector2( 3542.3, 439.539 )
+
+[node name="Mouse" parent="Prey" instance=ExtResource( 18 )]
+position = Vector2( 5907.81, 439.952 )
+
+[node name="Mouse2" parent="Prey" instance=ExtResource( 18 )]
+position = Vector2( -4057.21, 895.343 )
+
+[node name="Mouse3" parent="Prey" instance=ExtResource( 18 )]
+position = Vector2( -5634.04, 895.343 )
+
+[node name="Mouse4" parent="Prey" instance=ExtResource( 18 )]
+position = Vector2( 4347.43, 438.734 )
+
+[node name="PreySpawner" parent="." instance=ExtResource( 19 )]
+position = Vector2( -588.628, 258.829 )
+
+[node name="PreySpawner4" parent="." instance=ExtResource( 19 )]
+position = Vector2( -6123.48, 865.851 )
+
+[node name="PreySpawner2" parent="." instance=ExtResource( 19 )]
+position = Vector2( 4018.41, 419.01 )
+
+[node name="PreySpawner3" parent="." instance=ExtResource( 19 )]
+position = Vector2( 8473.08, 417.978 )
 
 [node name="Sfx" type="Node" parent="."]
 
@@ -230,4 +593,80 @@ margin_bottom = 63.5305
 custom_fonts/font = SubResource( 3 )
 text = "CONTROLLED NESTS: 0 / 10"
 
-[node name="Info" parent="." instance=ExtResource( 12 )]
+[node name="Win" type="Panel" parent="UI/Control"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -202.0
+margin_top = -115.0
+margin_right = 360.0
+margin_bottom = 163.0
+custom_styles/panel = SubResource( 13 )
+
+[node name="Label" type="Label" parent="UI/Control/Win"]
+margin_left = 57.2168
+margin_top = 82.2267
+margin_right = 503.217
+margin_bottom = 138.227
+custom_fonts/font = SubResource( 14 )
+custom_colors/font_color = Color( 0.0313726, 1, 0, 1 )
+text = "ALL NESTS BELONG TO YOU"
+align = 1
+uppercase = true
+
+[node name="Label2" type="Label" parent="UI/Control/Win"]
+margin_left = 59.7358
+margin_top = 18.6224
+margin_right = 505.736
+margin_bottom = 74.6224
+custom_fonts/font = SubResource( 14 )
+text = "AWESOME!"
+align = 1
+uppercase = true
+
+[node name="Label3" type="Label" parent="UI/Control/Win"]
+margin_left = 214.658
+margin_top = 151.035
+margin_right = 471.658
+margin_bottom = 236.035
+custom_fonts/font = SubResource( 15 )
+text = "R  - RESTART  
+Q  - qUIT"
+uppercase = true
+
+[node name="Lose" type="Panel" parent="UI/Control"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -202.0
+margin_top = -115.0
+margin_right = 360.0
+margin_bottom = 163.0
+custom_styles/panel = SubResource( 13 )
+
+[node name="Label" type="Label" parent="UI/Control/Lose"]
+margin_left = 43.9921
+margin_top = 45.0717
+margin_right = 518.992
+margin_bottom = 101.072
+custom_fonts/font = SubResource( 14 )
+custom_colors/font_color = Color( 1, 0, 0, 1 )
+text = "OH no... looks like You died"
+align = 1
+uppercase = true
+
+[node name="Label3" type="Label" parent="UI/Control/Lose"]
+margin_left = 212.139
+margin_top = 128.364
+margin_right = 469.139
+margin_bottom = 213.364
+custom_fonts/font = SubResource( 15 )
+text = "R  - RESTART  
+Q  - qUIT"
+uppercase = true
+
+[node name="Info" parent="." instance=ExtResource( 23 )]

@@ -1,4 +1,4 @@
-extends Timer
+extends Node2D
 
 var Mouse = preload("res://Components/Mouse/Mouse.tscn")
 var Worm  = preload("res://Components/Worm/Worm.tscn")
@@ -8,19 +8,19 @@ export var local = false
 
 var source
 
-func _on_PreySpawner_timeout():
+func _ready():
+	$Timer.start()
+
+func _on_Timer_timeout():
 	var prey 
 	if !worms_only and randi() % 4 == 0:
 		prey = Mouse.instance()
 	else:
 		prey = Worm.instance()
 		
+	print("SPAWNED..")
 	get_node("/root/Game/Prey").add_child(prey)
-	if local and source:
-		prey.position.x = source.global_position.x
-		prey.position.y = 250
-	else:
-		prey.position = Vector2(randi() % 2000 - 1000, 250 )
+	prey.position = global_position + Vector2(randi() % 100 - 50, 0)
 	
-	wait_time = randi() % 20 + get_node("/root/Game/Prey").get_children().size() / 2
-	start()	
+	$Timer.wait_time = randi() % 10 + get_node("/root/Game/Prey").get_children().size() / 2
+	$Timer.start()	
