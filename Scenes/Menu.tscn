@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Scenes/Menu.gd" type="Script" id=1]
 [ext_resource path="res://Assets/landscape.png" type="Texture" id=2]
@@ -6,6 +6,8 @@
 [ext_resource path="res://Assets/WCManoNegraBta.otf" type="DynamicFontData" id=4]
 [ext_resource path="res://Components/Moon/Moon.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Components/Moon/light.png" type="Texture" id=6]
+[ext_resource path="res://Assets/click.wav" type="AudioStream" id=7]
+[ext_resource path="res://Components/Bird/Assets/flap2.wav" type="AudioStream" id=8]
 
 [sub_resource type="DynamicFont" id=1]
 size = 80
@@ -127,8 +129,10 @@ anchor_mode = 0
 [node name="Sfx" type="Node" parent="."]
 
 [node name="Click" type="AudioStreamPlayer" parent="Sfx"]
+stream = ExtResource( 7 )
 
 [node name="Hover" type="AudioStreamPlayer" parent="Sfx"]
+stream = ExtResource( 8 )
 [connection signal="mouse_entered" from="CanvasLayer/Control/Title/StartBtn" to="." method="_on_StartBtn_mouse_entered"]
 [connection signal="mouse_exited" from="CanvasLayer/Control/Title/StartBtn" to="." method="_on_StartBtn_mouse_exited"]
 [connection signal="pressed" from="CanvasLayer/Control/Title/StartBtn" to="." method="_on_StartBtn_pressed"]

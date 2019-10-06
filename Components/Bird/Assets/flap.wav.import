@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/flap.wav-a3f2d44acc31f8ebdfe03d36fc5c58b6.sample"
+
+[deps]
+
+source_file="res://Components/Bird/Assets/flap.wav"
+dest_files=[ "res://.import/flap.wav-a3f2d44acc31f8ebdfe03d36fc5c58b6.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0

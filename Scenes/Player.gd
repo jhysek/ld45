@@ -20,6 +20,7 @@ const FLY_SPEED = 40000
 const WALK_SPEED = 10000
 
 var hit_force = 50
+var hit_claw_force = 25
 
 var state = STATE_SITTING
 var food_amount = 0
@@ -157,6 +158,8 @@ func controlled_process(delta):
 		motion.y = FLAP_FORCE
 		anim.stop(true)
 		anim.play("Flap")
+		$Sfx/Flap.pitch_scale = 1 + rand_range(-0.05, 0.05)
+		$Sfx/Flap.play()
 		if state != STATE_FLYING:
 			change_state(STATE_FLYING)
 			
@@ -298,6 +301,8 @@ func change_state(target):
 			spawner.worms_only = true
 			game.add_child(spawner)
 		else:
+			get_node("/root/Game/AnimationPlayer").play("Hit")
+			$Camera2D.shake(0.3, 50, 15)
 			get_node("/root/Game/UI/Control/Lose").show()
 		
 func is_alive():
@@ -335,6 +340,7 @@ func initiate_as_offspring():
 	scale = Vector2(0.5, 0.5)
 	energy = 50
 	hit_force = 25
+	hit_claw_force = 12
 	$Timer.start()
 		
 func hit(hp):
@@ -347,6 +353,17 @@ func hit(hp):
 		else:
 			info("- " + str(hp) + " energy")
 							
+		$Sfx/Hit.play()
+		
+		if controlled:
+			$Sfx/Hurt.pitch_scale = 1.1
+			get_node("/root/Game/AnimationPlayer").play("Hit")
+			$Camera2D.shake(0.2, 50, 10)
+		else:
+			$Sfx/Hurt.pitch_scale = 1 + rand_range(-0.1, 0.05)
+			get_node("/root/Game/Player/Camera2D").shake(0.15, 50, 10)
+		
+		$Sfx/Hurt.play()
 		
 		if energy <= 0:
 			print("DEAD....")
@@ -357,7 +374,7 @@ func hit(hp):
 			change_state(STATE_DEAD)
 	
 func store_food():
-	if state != STATE_DEAD:
+	if state != STATE_DEAD and claw_payload_food_value > 0:
 		food_amount += claw_payload_food_value
 		info("+ " + str(claw_payload_food_value) + " food")
 		claw_payload_food_value = 0
@@ -420,6 +437,12 @@ func grab(body):
 func _on_ClawArea_area_entered(area):
 	if !claw_payload and area.is_in_group("Prey"):
 		grab(area)
+		
+	if state != STATE_SITTING and state != STATE_DEAD and state != STATE_PATROLLING:
+		if area.is_in_group("HitArea"):
+			var bird = area.get_parent()
+			if bird != self and bird.parent != self and parent != bird:
+				area.get_parent().hit(hit_claw_force)
 
 
 func _on_Beak_area_entered(area):
@@ -464,10 +487,8 @@ func return_to_nest():
 		print("NEMAM HOME NEST, kam se vratit?")
 		
 func attack(player):
-	#var gpos = global_position
-	#get_parent().remove_child(self)
-	#game.add_child(self)
-	#position = gpos
+	$Sfx/Attack.pitch_scale = 1 + rand_range(-0.1, 0.1)
+	$Sfx/Attack.play()
 	change_state(STATE_ATTACKING)
 	print("ATTACK! " + str(global_position) + " => " + str(player.global_position))
 	tween_to(player, 1)

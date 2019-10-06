@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/hurt.wav-f4d6f893dddd2f22630fd5f25d2b7a36.sample"
+
+[deps]
+
+source_file="res://Components/Bird/Assets/hurt.wav"
+dest_files=[ "res://.import/hurt.wav-f4d6f893dddd2f22630fd5f25d2b7a36.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0
