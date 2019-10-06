@@ -1,31 +1,34 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Assets/bg_grayscale.png" type="Texture" id=1]
 [ext_resource path="res://Assets/landscape.png" type="Texture" id=2]
 [ext_resource path="res://Components/Moon/Moon.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Components/Nest/Nest.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Components/Egg/Egg.tscn" type="PackedScene" id=5]
-[ext_resource path="res://Components/Bird/Bird.tscn" type="PackedScene" id=6]
-[ext_resource path="res://Components/Worm/Worm.tscn" type="PackedScene" id=7]
-[ext_resource path="res://Components/Mouse/Mouse.tscn" type="PackedScene" id=8]
-[ext_resource path="res://Scenes/PreySpawner.gd" type="Script" id=9]
-[ext_resource path="res://Assets/WCManoNegraBta.otf" type="DynamicFontData" id=10]
+[ext_resource path="res://Components/Bird/Bird.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Components/Worm/Worm.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Components/PreySpawner/PreySpawner.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Assets/WCManoNegraBta.otf" type="DynamicFontData" id=8]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 3718.61, 10 )
 
-[sub_resource type="Curve2D" id=4]
+[sub_resource type="Curve2D" id=2]
 _data = {
-"points": PoolVector2Array( 0, 0, 0, 0, 1402.96, -226.94, 0, 0, 0, 0, 1001.28, -349.075, 0, 0, 0, 0, 849.026, -354.067, 0, 0, 0, 0, 629.383, -340.755, 0, 0, 0, 0, 270.799, -294.997, 0, 0, 0, 0, 31.1888, -241.75, 0, 0, 0, 0, -166.823, -213.462, 0, 0, 0, 0, -349.692, -436.766, 0, 0, 0, 0, -163.994, -716.312, 0, 0, 0, 0, 256.989, -772.055, 0, 0, 0, 0, 739.871, -895.854, 0, 0, 0, 0, 992.793, -815.151, 0, 0, 0, 0, 1264.85, -674.547, 0, 0, 0, 0, 1390.48, -556.405, 0, 0, 0, 0, 1434.58, -419.96, 0, 0, 0, 0, 1463.69, -253.564 )
+"points": PoolVector2Array( 0, 0, 0, 0, 1415.17, -259.7, 0, 0, 0, 0, 1001.28, -349.075, 0, 0, 0, 0, 849.026, -354.067, 0, 0, 0, 0, 629.383, -340.755, 0, 0, 0, 0, 270.799, -294.997, 0, 0, 0, 0, 31.1888, -241.75, 0, 0, 0, 0, -166.823, -213.462, 0, 0, 0, 0, -349.692, -436.766, 0, 0, 0, 0, -163.994, -716.312, 0, 0, 0, 0, 256.989, -772.055, 0, 0, 0, 0, 739.871, -895.854, 0, 0, 0, 0, 992.793, -815.151, 0, 0, 0, 0, 1264.85, -674.547, 0, 0, 0, 0, 1390.48, -556.405, 0, 0, 0, 0, 1434.58, -419.96, 0, 0, 0, 0, 1461.3, -296.069 )
+}
+
+[sub_resource type="Curve2D" id=6]
+_data = {
+"points": PoolVector2Array( 0, 0, 0, 0, 1514.17, -260.63, 0, 0, 0, 0, 1742.14, -270.387, 0, 0, 0, 0, 2473.25, -479.021, 0, 0, 0, 0, 2757.76, -603.375, 0, 0, 0, 0, 3544.75, -664.501, 0, 0, 0, 0, 4163.65, -911.55, 0, 0, 0, 0, 3941.68, -1063.59, 0, 0, 0, 0, 3659.36, -1134.4, 0, 0, 0, 0, 3354.45, -1178.91, 0, 0, 0, 0, 2827.54, -1182.45, 0, 0, 0, 0, 2017.13, -961.578, 0, 0, 0, 0, 1791.82, -670.625, 0, 0, 0, 0, 1635.7, -419.589, 0, 0, 0, 0, 1458.29, -282.983 )
 }
 
 [sub_resource type="DynamicFont" id=3]
 size = 30
 use_mipmaps = true
 use_filter = true
-font_data = ExtResource( 10 )
+font_data = ExtResource( 8 )
 
-[sub_resource type="StyleBoxFlat" id=5]
+[sub_resource type="StyleBoxFlat" id=4]
 bg_color = Color( 1, 1, 1, 1 )
 corner_radius_top_left = 5
 corner_radius_top_right = 5
@@ -33,7 +36,7 @@ corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 shadow_size = 1
 
-[sub_resource type="StyleBoxFlat" id=6]
+[sub_resource type="StyleBoxFlat" id=5]
 bg_color = Color( 0, 0, 0, 0.101961 )
 corner_radius_top_left = 5
 corner_radius_top_right = 5
@@ -47,14 +50,13 @@ expand_margin_bottom = 3.0
 [node name="Game" type="Node2D"]
 
 [node name="Environment" type="Node2D" parent="."]
-editor/display_folded = true
 
 [node name="TextureRect" type="TextureRect" parent="Environment"]
 modulate = Color( 0.435294, 0.454902, 0.513726, 1 )
 margin_left = -9545.0
-margin_top = -19301.2
+margin_top = -19246.2
 margin_right = -9243.0
-margin_bottom = -18248.2
+margin_bottom = -18193.2
 rect_scale = Vector2( 171.649, 19.0778 )
 texture = ExtResource( 1 )
 stretch_mode = 2
@@ -74,13 +76,9 @@ shape = SubResource( 1 )
 [node name="Moon" parent="Environment" instance=ExtResource( 3 )]
 
 [node name="Nests" type="Node2D" parent="Environment"]
-editor/display_folded = true
 
 [node name="Nest" parent="Environment/Nests" instance=ExtResource( 4 )]
 position = Vector2( -2.49594, 56.5748 )
-
-[node name="Egg" parent="Environment/Nests/Nest" instance=ExtResource( 5 )]
-modulate = Color( 0.658824, 0.658824, 0.658824, 1 )
 
 [node name="Nest2" parent="Environment/Nests" instance=ExtResource( 4 )]
 self_modulate = Color( 0.388235, 0.388235, 0.388235, 1 )
@@ -88,7 +86,7 @@ position = Vector2( 1448.48, -219.643 )
 
 [node name="Player" parent="." groups=[
 "Player",
-] instance=ExtResource( 6 )]
+] instance=ExtResource( 5 )]
 editor/display_folded = true
 position = Vector2( 333.4, 96.618 )
 scale = Vector2( 0.8, 0.8 )
@@ -100,54 +98,45 @@ current = true
 zoom = Vector2( 1.6, 1.6 )
 smoothing_enabled = true
 
-[node name="Enemy" parent="." instance=ExtResource( 6 )]
-position = Vector2( 1392.14, -223.613 )
+[node name="Enemy" parent="." groups=[
+"Enemy",
+] instance=ExtResource( 5 )]
+position = Vector2( 1418.27, -318.26 )
 scale = Vector2( 0.8, 0.8 )
 route_code = "e1"
 
 [node name="Routes" type="Node2D" parent="."]
-editor/display_folded = true
 position = Vector2( 0.00012207, 0 )
-scale = Vector2( 1, 1 )
 
 [node name="e1" type="Node2D" parent="Routes"]
-scale = Vector2( 1, 1 )
 
 [node name="r1" type="Path2D" parent="Routes/e1"]
+editor/display_folded = true
 position = Vector2( -10.8157, 3.32788 )
-curve = SubResource( 4 )
+curve = SubResource( 2 )
 
 [node name="PathFollow" type="PathFollow2D" parent="Routes/e1/r1"]
-position = Vector2( 1402.96, -226.94 )
-rotation = -2.84642
+position = Vector2( 1415.17, -259.7 )
+rotate = false
+loop = false
+
+[node name="r2" type="Path2D" parent="Routes/e1"]
+editor/display_folded = true
+curve = SubResource( 6 )
+
+[node name="PathFollow" type="PathFollow2D" parent="Routes/e1/r2"]
+position = Vector2( 1514.17, -260.63 )
 rotate = false
 loop = false
 
 [node name="Prey" type="Node2D" parent="."]
 
-[node name="Worm2" parent="Prey" instance=ExtResource( 7 )]
+[node name="Worm2" parent="Prey" instance=ExtResource( 6 )]
 position = Vector2( 2270.25, 256.857 )
 
-[node name="Worm" parent="Prey" instance=ExtResource( 7 )]
+[node name="Worm" parent="Prey" instance=ExtResource( 6 )]
 
-[node name="Worm3" parent="Prey" instance=ExtResource( 7 )]
-
-[node name="Worm4" parent="Prey" instance=ExtResource( 7 )]
-
-[node name="Worm5" parent="Prey" instance=ExtResource( 7 )]
-
-[node name="Worm6" parent="Prey" instance=ExtResource( 7 )]
-
-[node name="Worm7" parent="Prey" instance=ExtResource( 7 )]
-
-[node name="Worm8" parent="Prey" instance=ExtResource( 7 )]
-
-[node name="Mouse" parent="Prey" instance=ExtResource( 8 )]
-position = Vector2( -153.269, 253.773 )
-
-[node name="PreySpawner" type="Timer" parent="."]
-autostart = true
-script = ExtResource( 9 )
+[node name="PreySpawner" parent="." instance=ExtResource( 7 )]
 
 [node name="Sfx" type="Node" parent="."]
 
@@ -172,8 +161,8 @@ margin_left = 148.0
 margin_top = 26.0
 margin_right = 334.0
 margin_bottom = 47.0
-custom_styles/fg = SubResource( 5 )
-custom_styles/bg = SubResource( 6 )
+custom_styles/fg = SubResource( 4 )
+custom_styles/bg = SubResource( 5 )
 step = 1.0
 value = 100.0
 rounded = true
@@ -196,4 +185,3 @@ margin_right = -314.3
 margin_bottom = 63.5305
 custom_fonts/font = SubResource( 3 )
 text = "CONTROLLED NESTS: 0 / 10"
-[connection signal="timeout" from="PreySpawner" to="PreySpawner" method="_on_PreySpawner_timeout"]

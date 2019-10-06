@@ -1,6 +1,6 @@
 extends Area2D
 
-export var speed = 400
+export var speed = 500
 export var food_value = 10
 
 var dead = false

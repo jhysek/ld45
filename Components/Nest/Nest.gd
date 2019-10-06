@@ -3,8 +3,7 @@ extends Area2D
 export var my_nest = false
 export var eggs = 0
 
-var player
-
+onready var player = get_node("/root/Game/Player")
 onready var title = $Panel/Title
 
 func _ready():
@@ -18,9 +17,19 @@ func add_egg(egg):
 	add_child(egg)
 
 func _on_Nest_body_entered(body):
+	if body.is_in_group("Enemy"):
+		for overlappng in get_overlapping_bodies():
+			if overlappng.is_in_group("Player"):
+				return
+		lose()
+		player.on_nest_losed()
+		
 	if body.is_in_group("Player"):
+		for overlapping in get_overlapping_bodies():
+			if overlapping.is_in_group("Enemy") and overlapping.is_alive():
+				return
+				
 		if not my_nest and eggs == 0:
-			player = body 
 			own()
 			player.on_nest_owned()
 			

@@ -3,6 +3,10 @@ extends KinematicBody2D
 const STATE_SITTING = 0
 const STATE_FLYING = 1
 const STATE_ATTACKING = 2
+const STATE_PATROLLING = 3
+const STATE_DEAD = 4
+
+const EGG_PRICE = 10
 
 const GRAVITY = 2000
 const FLAP_FORCE = -1000
@@ -27,6 +31,9 @@ var current_route = null
 var current_route_idx = 0
 var route_target = Vector2(0,0)
 var idle_time = 0
+var waiting_for_new_path = false
+var previous_position
+var start_position
 
 var current_path = null
 
@@ -37,8 +44,8 @@ export var energy_duration = 60
 onready var claw_ray = $Visuals/Claw/ClawRay
 onready var visual   = $Visuals
 onready var anim     = $AnimationPlayer
-onready var beak_ray = $Visuals/BodyFlying/BeakRay
 onready var energy_bar = get_node("/root/Game/UI/Control/EnergyProgress")
+onready var game = get_node("/root/Game")
 
 var Egg = preload("res://Components/Egg/Egg.tscn")
 
@@ -50,31 +57,36 @@ func _ready():
 func restart():
 	energy = 100
 	
-
 func _physics_process(delta):
-	grounded = claw_ray.is_colliding()
-	if grounded:
-		if state != STATE_SITTING:
-			change_state(STATE_SITTING)
-	else:
-		if state != STATE_ATTACKING and state != STATE_FLYING:
-			change_state(STATE_FLYING)
+	if state != STATE_PATROLLING:
+		if state != STATE_DEAD:
+			grounded = claw_ray.is_colliding()
+			if grounded:
+				if state != STATE_SITTING:
+					change_state(STATE_SITTING)
+			else:
+				if state != STATE_ATTACKING and state != STATE_FLYING:
+					change_state(STATE_FLYING)
 	
-	motion.y += GRAVITY * delta
+		motion.y += GRAVITY * delta
 	
-	if controlled:
-		controlled_process(delta)	
+	if state != STATE_DEAD:
+		if controlled:
+			controlled_process(delta)	
 		
-		if state != STATE_SITTING:
-			energy -= delta
-			energy_bar.value = round(energy)
-				
+			if state != STATE_SITTING:
+				energy -= delta
+				energy_bar.value = round(energy)
+		else:
+			ai_process(delta)
 	else:
-		ai_process(delta)
+		motion.x = lerp(motion.x, 0, 0.2)
 
-	motion = move_and_slide(motion, Vector2(0,0), true)
+	if state != STATE_PATROLLING:
+		motion = move_and_slide(motion, Vector2(0,0), true)
 		
 func ai_process(delta):
+	if !waiting_for_new_path:
 		patrol(delta)
 		
 func controlled_process(delta):
@@ -113,56 +125,54 @@ func controlled_process(delta):
 			motion.x = lerp(motion.x, min(motion.x + speed * delta, speed * delta), 10 * delta)
 		
 	elif !Input.is_action_pressed("ui_left") and grounded:
-		motion.x = 0
-		
-	if state == STATE_ATTACKING and beak_ray.is_colliding():
-		var hit = beak_ray.get_collider()
-		if hit.is_in_group("Prey"):
-			hit.die()
-		
+		motion.x = 0		
 	
 func patrol(delta):
 	if current_path and current_path.unit_offset < 1:
-		current_path.unit_offset += delta
+		current_path.offset += delta * 300
+		
+		if global_position.x > previous_position.x and $Visuals.scale.x < 0:
+			$Visuals.scale.x = 1
+			
+		if global_position.x < previous_position.x and $Visuals.scale.x > 0:
+			$Visuals.scale.x = -1
+		
+		previous_position = global_position
+		
+		if current_path.unit_offset >= 1:
+			current_path.remove_child(self)
+			game.add_child(self)
+			global_position = start_position
 	else:
+		change_state(STATE_SITTING)
 		current_path = null
+		waiting_for_new_path = true
 		$PathPickTimer.stop()
 		$PathPickTimer.wait_time = randi() % 10 + 3
+		print("Waiting " + str($PathPickTimer.wait_time) + " seconds..")
 		$PathPickTimer.start()
 		
 func pick_path():
+	if state == STATE_DEAD:
+		return
+		
+	print("Picking path...")
 	if routes.size() > 0:
-		current_path = routes[randi() % routes.size]
-		var follow = current_path.get_node("PathFollow")
+		current_path = routes[randi() % routes.size()].get_node("PathFollow")
 		get_parent().remove_child(self)
-		follow.add_child(self)
+		current_path.add_child(self)
+		current_path.offset = 0
+		position = Vector2(0,0)
+		waiting_for_new_path = false
+		previous_position = global_position
+		start_position = global_position
+		change_state(STATE_PATROLLING)
 		
-	
-func xpatrol(delta):
-	if !current_route:
-		current_route = routes[randi() % routes.size()]  # pick random route
-		current_route_idx = 0
-	
-	if abs(route_target.x - global_position.x) < 10 and abs(route_target.y - global_position.y) < 10:
 		
-		current_route_idx += 1
-	
-		if current_route_idx < current_route.size():
-			route_target = current_route[current_route_idx]
-		else:
-			current_route = null
-			idle_time = randi() % 20 + 3
-			change_state(STATE_SITTING)
-	else:
-		if idle_time <= 0:
-			change_state(STATE_FLYING)
-		else:
-			idle_time -= delta
-		
-	
 func load_routes():
+	var routes_node = get_node("/root/Game/Routes")
 	routes = []
-	if has_node("Routes") and route_code != "" and get_tree().get_root().has_node("Game/Routes/" + route_code):
+	if route_code != "" and routes_node.has_node(route_code):
 		print("Got routes...");
 		for path in get_node("/root/Game/Routes/" + route_code).get_children():
 			routes.append(path)
@@ -175,10 +185,8 @@ func load_routes():
 	#	routes.append(new_route)
 			
 func change_state(target):
-	if target == state:
+	if target == state or state == STATE_DEAD:
 		return
-		
-	beak_ray.enabled = false
 		
 	if target == STATE_SITTING:
 		state = STATE_SITTING
@@ -190,8 +198,12 @@ func change_state(target):
 		speed = FLY_SPEED
 		anim.play("Flap")
 		
+	if target == STATE_PATROLLING:
+		state = STATE_PATROLLING
+		speed = FLY_SPEED
+		anim.play("Patrol")
+		
 	if state == STATE_FLYING and target == STATE_ATTACKING:
-		beak_ray.enabled = true
 		print("ATTACKING")
 		
 		state = STATE_ATTACKING
@@ -200,6 +212,21 @@ func change_state(target):
 			anim.play("AttackRight")
 		else:
 			anim.play("AttackLeft")
+	
+	if target == STATE_DEAD:
+		state = STATE_DEAD
+		$PathPickTimer.stop()
+		anim.play("Die")
+		if !controlled:
+			var Spawner = load("res://Components/PreySpawner/PreySpawner.tscn")
+			var spawner = Spawner.instance()
+			spawner.source = self
+			spawner.local = true
+			spawner.worms_only = true
+			game.add_child(spawner)
+	
+func is_alive():
+	return state != STATE_DEAD
 	
 func on_nest_landed(nest):
 	nested = true
@@ -210,6 +237,9 @@ func on_nest_landed(nest):
 func on_nest_leaved():
 	nested = false
 	current_nest = null
+	
+func on_nest_losed():
+	on_nest_owned()
 
 func on_nest_owned():
 	nests_owned = 0
@@ -225,6 +255,13 @@ func on_nest_owned():
 func initiate_as_offspring():
 	scale = Vector2(0.3, 0.3)
 		
+func hit(hp):
+	energy -= hp
+	print("HIT: .. hp remaining: " + str(energy))
+	if energy <= 0:
+		print("DEAD....")
+		change_state(STATE_DEAD)
+	
 func store_food():
 	food_amount += claw_payload.food_value;
 	claw_payload.queue_free()
@@ -244,21 +281,21 @@ func eat():
 	
 func lay_egg():
 	if nested and current_nest.my_nest:
-		var egg = Egg.instance()
-		egg.my_egg = true
-		egg.parent = self
-		egg.home_nest = current_nest
-		egg.position = Vector2(randi() % 50 - 25, 0)
-		egg.rotation_degrees = randi() % 20 - 10
-		current_nest.add_egg(egg)
+		if food_amount >= EGG_PRICE:
+			food_amount -= EGG_PRICE
+			get_node("/root/Game/UI/Control/Food").text = "FOOD: " + str(food_amount)
+			var egg = Egg.instance()
+			egg.my_egg = true
+			egg.parent = self
+			egg.home_nest = current_nest
+			egg.position = Vector2(randi() % 50 - 25, 0)
+			egg.rotation_degrees = randi() % 20 - 10
+			current_nest.add_egg(egg)
+		else:
+			print("Not enough food")
 	
 func grab(body):
-	if nests_owned == 0:
-		food_amount += body.food_value
-		body.queue_free()
-		for i in range(body.food_value):
-			eat()
-	else:
+	if state != STATE_DEAD:
 		claw_payload = body
 		get_node("/root/Game/Prey").remove_child(body)
 		$Visuals/Claw.add_child(body)
@@ -270,3 +307,13 @@ func _on_ClawArea_area_entered(area):
 	if !claw_payload and area.is_in_group("Prey"):
 		grab(area)
 
+
+func _on_Beak_area_entered(area):
+	if state != STATE_SITTING and state != STATE_DEAD and state != STATE_PATROLLING:
+		if area.is_in_group("HitArea"):
+			var bird = area.get_parent()
+			if bird != self:
+				area.get_parent().hit(50)
+			
+		if area.is_in_group("Prey"):
+			area.die()
