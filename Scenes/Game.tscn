@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=2]
+[gd_scene load_steps=45 format=2]
 
 [ext_resource path="res://Assets/bg_grayscale.png" type="Texture" id=1]
 [ext_resource path="res://Assets/landscape.png" type="Texture" id=2]
@@ -19,12 +19,13 @@
 [ext_resource path="res://Scenes/Camera2D.gd" type="Script" id=17]
 [ext_resource path="res://Components/Worm/Worm.tscn" type="PackedScene" id=18]
 [ext_resource path="res://Components/Mouse/Mouse.tscn" type="PackedScene" id=19]
-[ext_resource path="res://Components/PreySpawner/PreySpawner.tscn" type="PackedScene" id=20]
-[ext_resource path="res://Assets/WCManoNegraBta.otf" type="DynamicFontData" id=21]
-[ext_resource path="res://Assets/WCManoNegraBoldBta.otf" type="DynamicFontData" id=22]
-[ext_resource path="res://Assets/bebas.otf" type="DynamicFontData" id=23]
+[ext_resource path="res://Assets/bebas.otf" type="DynamicFontData" id=20]
+[ext_resource path="res://Components/PreySpawner/PreySpawner.tscn" type="PackedScene" id=21]
+[ext_resource path="res://Assets/WCManoNegraBta.otf" type="DynamicFontData" id=22]
+[ext_resource path="res://Assets/WCManoNegraBoldBta.otf" type="DynamicFontData" id=23]
 [ext_resource path="res://Assets/hit_overlay.png" type="Texture" id=24]
 [ext_resource path="res://Components/InfoText/Info.tscn" type="PackedScene" id=25]
+[ext_resource path="res://Assets/ld45_ms.ogg" type="AudioStream" id=26]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0, 0, 0, 1 )
@@ -72,11 +73,16 @@ _data = {
 "points": PoolVector2Array( 0, 0, 0, 0, 10332.7, 109.008, 0, 0, 0, 0, 10164.7, 165.531, 0, 0, 0, 0, 10018, 168.587, 0, 0, 0, 0, 9891.22, 142.616, 0, 0, 0, 0, 9817.9, 70.8163, 0, 0, 0, 0, 9833.17, -10.1499, 0, 0, 0, 0, 9875.95, -54.4521, 0, 0, 0, 0, 9979.83, -75.8394, 0, 0, 0, 0, 10205.9, -94.1714, 0, 0, 0, 0, 10447.3, -95.699, 0, 0, 0, 0, 10679.5, -77.3671, 0, 0, 0, 0, 10760.5, 34.1523, 0, 0, 0, 0, 10728.4, 115.118, 0, 0, 0, 0, 10528.3, 127.34, 0, 0, 0, 0, 10355.6, 107.48 )
 }
 
+[sub_resource type="DynamicFont" id=17]
+size = 30
+outline_color = Color( 0.188235, 0.188235, 0.188235, 1 )
+font_data = ExtResource( 20 )
+
 [sub_resource type="DynamicFont" id=12]
 size = 30
 use_mipmaps = true
 use_filter = true
-font_data = ExtResource( 21 )
+font_data = ExtResource( 22 )
 
 [sub_resource type="StyleBoxFlat" id=13]
 bg_color = Color( 1, 1, 1, 1 )
@@ -104,11 +110,6 @@ bg_color = Color( 0, 0, 0, 1 )
 size = 40
 use_mipmaps = true
 use_filter = true
-font_data = ExtResource( 22 )
-
-[sub_resource type="DynamicFont" id=17]
-size = 30
-outline_color = Color( 0.188235, 0.188235, 0.188235, 1 )
 font_data = ExtResource( 23 )
 
 [sub_resource type="Animation" id=18]
@@ -551,16 +552,30 @@ position = Vector2( -5634.04, 895.343 )
 [node name="Mouse4" parent="Prey" instance=ExtResource( 19 )]
 position = Vector2( 4347.43, 438.734 )
 
-[node name="PreySpawner" parent="." instance=ExtResource( 20 )]
+[node name="Instructions" type="Label" parent="."]
+margin_left = -7899.64
+margin_top = 431.019
+margin_right = -7310.64
+margin_bottom = 692.019
+custom_fonts/font = SubResource( 17 )
+text = ">    [SPACE]    to    flap
+>    capture    all   nests
+>    BRING    FOOD   TO   THE   NEST
+>    EAT    TO   RESTORE    ENERGY
+>    USE     CLAWS     OR     BEAK   [X]   TO    HUNT    OR    FIGHT
+>    0   ENERGY    ->    DEATH"
+uppercase = true
+
+[node name="PreySpawner" parent="." instance=ExtResource( 21 )]
 position = Vector2( -588.628, 258.829 )
 
-[node name="PreySpawner4" parent="." instance=ExtResource( 20 )]
+[node name="PreySpawner4" parent="." instance=ExtResource( 21 )]
 position = Vector2( -6123.48, 865.851 )
 
-[node name="PreySpawner2" parent="." instance=ExtResource( 20 )]
+[node name="PreySpawner2" parent="." instance=ExtResource( 21 )]
 position = Vector2( 4018.41, 419.01 )
 
-[node name="PreySpawner3" parent="." instance=ExtResource( 20 )]
+[node name="PreySpawner3" parent="." instance=ExtResource( 21 )]
 position = Vector2( 8473.08, 417.978 )
 
 [node name="Sfx" type="Node" parent="."]
@@ -611,7 +626,7 @@ margin_top = 21.5305
 margin_right = -314.3
 margin_bottom = 63.5305
 custom_fonts/font = SubResource( 12 )
-text = "CONTROLLED NESTS: 0 / 10"
+text = "CAPTURED NESTS: 0 / 10"
 
 [node name="Win" type="Panel" parent="UI/Control"]
 visible = false
@@ -702,3 +717,8 @@ stretch_mode = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/Hit = SubResource( 18 )
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 26 )
+autoplay = true
+bus = "Music"

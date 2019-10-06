@@ -331,7 +331,7 @@ func on_nest_owned():
 		if nest.my_nest:
 			nests_owned += 1
 			
-	get_node("/root/Game/UI/Control/Nests").text = "CONTROLLED NESTS: " + str(nests_owned) + "/" + str(total_nests)
+	get_node("/root/Game/UI/Control/Nests").text = "CAPTURED NESTS: " + str(nests_owned) + "/" + str(total_nests)
 	
 	if nests_owned == total_nests:
 		change_state(STATE_WON)
@@ -370,7 +370,7 @@ func hit(hp):
 			if controlled:
 				info("You are dead..  [R] try again", "#aa0000", position + Vector2(0, 30), 0.1)
 			else:
-				info("Enemy defeated", "#00aa00", position + Vector2(0, 30), 0.5)
+				info("Enemy defeated", "#990000", position + Vector2(0, 30), 0.5)
 			change_state(STATE_DEAD)
 	
 func store_food():
