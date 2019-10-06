@@ -13,6 +13,10 @@ func _ready():
 	else:
 		lose()
 
+func add_egg(egg):
+	eggs += 1
+	add_child(egg)
+
 func _on_Nest_body_entered(body):
 	if body.is_in_group("Player"):
 		if not my_nest and eggs == 0:

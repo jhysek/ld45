@@ -1,14 +1,22 @@
 extends Area2D
 
-export var speed = 400
+export var speed = 100
 export var food_value = 2
 
 var dead = false
 var direction = 1
 
 func _ready():
-	direction = randi() % 2 
+	set_random_direction()
 	set_process(true)
+	
+func set_random_direction():
+	if randi() % 2 == 1:
+		direction = 1
+		$Sprite.scale.x = 1
+	else:
+		direction = -1
+		$Sprite.scale.x = -1
 
 func die():
 	dead = true
@@ -18,5 +26,5 @@ func _process(delta):
 	if not dead:
 		position.x = position.x + (direction * speed * delta)
 		
-		if randi() % 100 > 90:
-			direction = randi() % 2
+		if randi() % 100 > 95:
+			set_random_direction()

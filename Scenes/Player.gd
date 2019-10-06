@@ -20,6 +20,7 @@ var motion = Vector2(0,0)
 var grounded = true
 var speed = WALK_SPEED
 var claw_payload = null
+var parent
 
 var routes = []
 var current_route = null
@@ -38,6 +39,8 @@ onready var visual   = $Visuals
 onready var anim     = $AnimationPlayer
 onready var beak_ray = $Visuals/BodyFlying/BeakRay
 onready var energy_bar = get_node("/root/Game/UI/Control/EnergyProgress")
+
+var Egg = preload("res://Components/Egg/Egg.tscn")
 
 func _ready():
 	if !controlled:
@@ -62,7 +65,7 @@ func _physics_process(delta):
 	if controlled:
 		controlled_process(delta)	
 		
-		if !grounded:
+		if state != STATE_SITTING:
 			energy -= delta
 			energy_bar.value = round(energy)
 				
@@ -76,9 +79,12 @@ func ai_process(delta):
 		
 func controlled_process(delta):
 	if Input.is_action_just_pressed("ui_action1"):
-		if state != STATE_ATTACKING:
+		if state == STATE_FLYING:
 			change_state(STATE_ATTACKING)
-	
+			
+		if state == STATE_SITTING and nested and current_nest.my_nest:
+			lay_egg()
+			
 	if Input.is_action_just_pressed("ui_action2"):
 		if nested and current_nest.my_nest:
 			eat()
@@ -206,7 +212,7 @@ func on_nest_leaved():
 	current_nest = null
 
 func on_nest_owned():
-	var nests_owned = 0
+	nests_owned = 0
 	var total_nests   = 0
 	
 	for nest in get_node("/root/Game/Environment/Nests").get_children():
@@ -215,6 +221,9 @@ func on_nest_owned():
 			nests_owned += 1
 			
 	get_node("/root/Game/UI/Control/Nests").text = "CONTROLLED NESTS: " + str(nests_owned) + "/" + str(total_nests)
+	
+func initiate_as_offspring():
+	scale = Vector2(0.3, 0.3)
 		
 func store_food():
 	food_amount += claw_payload.food_value;
@@ -226,17 +235,35 @@ func eat():
 	if food_amount > 0:
 		food_amount -= 1
 		energy += 5
+		if energy > 100:
+			energy = 100
 		energy_bar.value = round(energy)
 		get_node("/root/Game/UI/Control/Food").text = "FOOD: " + str(food_amount)
 	else:
 		print("NOT ENOUGH FOOD!")
 	
+func lay_egg():
+	if nested and current_nest.my_nest:
+		var egg = Egg.instance()
+		egg.my_egg = true
+		egg.parent = self
+		egg.home_nest = current_nest
+		egg.position = Vector2(randi() % 50 - 25, 0)
+		egg.rotation_degrees = randi() % 20 - 10
+		current_nest.add_egg(egg)
+	
 func grab(body):
-	claw_payload = body
-	get_node("/root/Game/Prey").remove_child(body)
-	$Visuals/Claw.add_child(body)
-	body.die()
-	body.position = Vector2(0,0)
+	if nests_owned == 0:
+		food_amount += body.food_value
+		body.queue_free()
+		for i in range(body.food_value):
+			eat()
+	else:
+		claw_payload = body
+		get_node("/root/Game/Prey").remove_child(body)
+		$Visuals/Claw.add_child(body)
+		body.die()
+		body.position = Vector2(0,0)
 
 
 func _on_ClawArea_area_entered(area):

@@ -1,23 +1,29 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://Components/Worm/Worm.gd" type="Script" id=1]
-[ext_resource path="res://Components/Worm/worm.png" type="Texture" id=2]
+[ext_resource path="res://Components/Mouse/Mouse.gd" type="Script" id=1]
+[ext_resource path="res://Components/Mouse/mouse.png" type="Texture" id=2]
+[ext_resource path="res://Components/Mouse/mouse_hanging.png" type="Texture" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 21.2206, 12.5676 )
+extents = Vector2( 46.27, 17.4295 )
 
-[node name="Worm" type="Area2D" groups=[
+[node name="Mouse" type="Area2D" groups=[
 "Prey",
 ]]
 position = Vector2( 154.482, 260.16 )
 collision_layer = 32
 collision_mask = 32
 script = ExtResource( 1 )
-speed = 200
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 2 )
 
+[node name="SpriteHanging" type="Sprite" parent="."]
+visible = false
+position = Vector2( 15.1797, 11.4773 )
+rotation = 0.233786
+texture = ExtResource( 3 )
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( -0.149444, -7.77045 )
+position = Vector2( 0.591019, -2.77228 )
 shape = SubResource( 1 )
