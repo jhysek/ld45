@@ -1,16 +1,24 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://Assets/bg_grayscale.png" type="Texture" id=1]
 [ext_resource path="res://Assets/landscape.png" type="Texture" id=2]
 [ext_resource path="res://Components/Moon/Moon.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Components/Nest/Nest.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Components/Bird/Bird.tscn" type="PackedScene" id=5]
-[ext_resource path="res://Components/Worm/Worm.tscn" type="PackedScene" id=6]
-[ext_resource path="res://Components/PreySpawner/PreySpawner.tscn" type="PackedScene" id=7]
-[ext_resource path="res://Assets/WCManoNegraBta.otf" type="DynamicFontData" id=8]
+[ext_resource path="res://Assets/foreground01.png" type="Texture" id=4]
+[ext_resource path="res://Assets/foreground02.png" type="Texture" id=5]
+[ext_resource path="res://Assets/foreground03.png" type="Texture" id=6]
+[ext_resource path="res://Components/Nest/Nest.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Components/Bird/Bird.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Components/Worm/Worm.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Components/PreySpawner/PreySpawner.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Assets/WCManoNegraBta.otf" type="DynamicFontData" id=11]
+[ext_resource path="res://Components/InfoText/Info.tscn" type="PackedScene" id=12]
 
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 3718.61, 10 )
+[sub_resource type="PhysicsMaterial" id=7]
+friction = 0.0
+rough = true
+
+[sub_resource type="RectangleShape2D" id=8]
+extents = Vector2( 156.051, 38.5162 )
 
 [sub_resource type="Curve2D" id=2]
 _data = {
@@ -26,7 +34,7 @@ _data = {
 size = 30
 use_mipmaps = true
 use_filter = true
-font_data = ExtResource( 8 )
+font_data = ExtResource( 11 )
 
 [sub_resource type="StyleBoxFlat" id=4]
 bg_color = Color( 1, 1, 1, 1 )
@@ -53,42 +61,74 @@ expand_margin_bottom = 3.0
 
 [node name="TextureRect" type="TextureRect" parent="Environment"]
 modulate = Color( 0.435294, 0.454902, 0.513726, 1 )
-margin_left = -9545.0
-margin_top = -19246.2
-margin_right = -9243.0
-margin_bottom = -18193.2
+margin_left = -9558.23
+margin_top = -19227.9
+margin_right = -9256.23
+margin_bottom = -18174.9
 rect_scale = Vector2( 171.649, 19.0778 )
 texture = ExtResource( 1 )
 stretch_mode = 2
 
 [node name="Landscape" type="Sprite" parent="Environment"]
 modulate = Color( 0.45098, 0.47451, 0.486275, 1 )
-position = Vector2( 1331.96, -10.8289 )
+position = Vector2( 2228.53, 147.717 )
+scale = Vector2( 1.80229, 2.51028 )
 texture = ExtResource( 2 )
 
-[node name="Floor" type="StaticBody2D" parent="Environment"]
-editor/display_folded = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/Floor"]
-position = Vector2( -0.174072, 274.659 )
-shape = SubResource( 1 )
-
 [node name="Moon" parent="Environment" instance=ExtResource( 3 )]
+position = Vector2( 4505.67, -805.121 )
+
+[node name="Foreground01" type="Sprite" parent="Environment"]
+position = Vector2( 44.7517, 396.374 )
+texture = ExtResource( 4 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Environment/Foreground01"]
+physics_material_override = SubResource( 7 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Environment/Foreground01/StaticBody2D"]
+position = Vector2( -57.0342, -21.8104 )
+polygon = PoolVector2Array( -1069.88, -1162.78, -1401.55, -1164.82, -1405.09, -1221.46, -1599.27, -1215.7, -1725.15, 186.236, -1542.19, 444.583, 1127.22, 1118.44, 1836.54, 992.338, 1820.78, -201.687, 1667.09, -225.331, 1525.23, -181.984, 1458.24, -40.1193, 1430.65, 160.855, 1363.66, 259.372, 1379.43, 401.237, 1383.37, 614.033, 1311.34, 813.989, 1079.82, 819.373, 1003.09, 649.772, 801.186, 462.672, 775.611, 334.798, 670.62, 317.299, 630.697, 192.381, 752.858, 156.915, 811.967, -138.636, 792.264, -248.975, 681.925, -296.263, 617.987, -200.418, 174.625, -210.729, 155.738, -234.603, 138.716, -401.244, 282.959, -629.703, 345.673, -634.183, 306.252, -650.31, 252.497, -644.038, 227.412, -614.473, 198.742, -615.369, 174.552, -545.487, 170.969, -509.65, 128.86, -471.126, 100.191, -595.658, 60.7706, -635.079, 58.0829, -692.418, 122.589, -671.812, 120.797, -722.879, 90.3359, -752.444, 28.5175, -745.277, 24.038, -588.491, 63.4584, -520.401, -40.4683, -559.822, -78.0969, -649.414, -151.562, -664.644, -196.358, -652.101, -91.5356, -626.12, -63.7622, -523.089, 44.644, -453.207, 25.8297, -228.332, -158.73, -219.372, -337.913, -174.576, -1031.35, -176.368, -1036.73, -425.434, -921.157, -363.615, -1038.52, -465.75, -1228.46, -475.605, -1223.08, -880.561, -1084.21, -878.769, -1088.69, -914.606, -1224.87, -919.085, -1223.08, -1109.02, -1129.91, -1110.81, -1131.7, -1035.55, -1111.09, -1035.55, -1107.51, -1119.77, -1072.57, -1119.77 )
+
+[node name="Foreground02" type="Sprite" parent="Environment"]
+position = Vector2( 3810.19, 451.932 )
+texture = ExtResource( 5 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Environment/Foreground02"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Environment/Foreground02/StaticBody2D"]
+polygon = PoolVector2Array( -2033.96, -268.42, -1895.85, -272.996, -1679.14, -192.234, -1287.44, -201.656, -1006.12, -1.09601, -736.912, 11.0184, -575.386, -18.5945, -92.1575, -29.3629, 173.013, -15.9025, 655.703, -29.9014, 1019.13, -105.28, 1328.19, -129.508, 1836.18, -85.6276, 1946.56, 88.0118, 1888.95, 2104.65, -1961.27, 1954.97 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/Foreground02/StaticBody2D"]
+position = Vector2( 57.8796, -658.215 )
+shape = SubResource( 8 )
+one_way_collision = true
+
+[node name="Foreground03" type="Sprite" parent="Environment"]
+position = Vector2( -4384.92, -358.409 )
+texture = ExtResource( 6 )
 
 [node name="Nests" type="Node2D" parent="Environment"]
 
-[node name="Nest" parent="Environment/Nests" instance=ExtResource( 4 )]
-position = Vector2( -2.49594, 56.5748 )
+[node name="Nest" parent="Environment/Nests" instance=ExtResource( 7 )]
+position = Vector2( -1163.21, -798.2 )
 
-[node name="Nest2" parent="Environment/Nests" instance=ExtResource( 4 )]
+[node name="Nest2" parent="Environment/Nests" instance=ExtResource( 7 )]
 self_modulate = Color( 0.388235, 0.388235, 0.388235, 1 )
-position = Vector2( 1448.48, -219.643 )
+position = Vector2( 61.2227, -380.789 )
+
+[node name="Nest3" parent="Environment/Nests" instance=ExtResource( 7 )]
+self_modulate = Color( 0.388235, 0.388235, 0.388235, 1 )
+position = Vector2( 731.422, 662.316 )
+
+[node name="Nest4" parent="Environment/Nests" instance=ExtResource( 7 )]
+self_modulate = Color( 0.388235, 0.388235, 0.388235, 1 )
+position = Vector2( 4941.65, -715.889 )
 
 [node name="Player" parent="." groups=[
 "Player",
-] instance=ExtResource( 5 )]
+] instance=ExtResource( 8 )]
 editor/display_folded = true
-position = Vector2( 333.4, 96.618 )
+position = Vector2( 333.4, 97.1977 )
 scale = Vector2( 0.8, 0.8 )
 controlled = true
 
@@ -100,13 +140,14 @@ smoothing_enabled = true
 
 [node name="Enemy" parent="." groups=[
 "Enemy",
-] instance=ExtResource( 5 )]
-position = Vector2( 1418.27, -318.26 )
+] instance=ExtResource( 8 )]
+position = Vector2( 54.9307, -443.968 )
 scale = Vector2( 0.8, 0.8 )
 route_code = "e1"
 
 [node name="Routes" type="Node2D" parent="."]
-position = Vector2( 0.00012207, 0 )
+editor/display_folded = true
+position = Vector2( -1401.27, -135.456 )
 
 [node name="e1" type="Node2D" parent="Routes"]
 
@@ -130,13 +171,14 @@ rotate = false
 loop = false
 
 [node name="Prey" type="Node2D" parent="."]
+editor/display_folded = true
 
-[node name="Worm2" parent="Prey" instance=ExtResource( 6 )]
+[node name="Worm2" parent="Prey" instance=ExtResource( 9 )]
 position = Vector2( 2270.25, 256.857 )
 
-[node name="Worm" parent="Prey" instance=ExtResource( 6 )]
+[node name="Worm" parent="Prey" instance=ExtResource( 9 )]
 
-[node name="PreySpawner" parent="." instance=ExtResource( 7 )]
+[node name="PreySpawner" parent="." instance=ExtResource( 10 )]
 
 [node name="Sfx" type="Node" parent="."]
 
@@ -145,6 +187,8 @@ position = Vector2( 2270.25, 256.857 )
 [node name="Control" type="Control" parent="UI"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_top = 1.71838
+margin_bottom = 1.71838
 
 [node name="Food" type="Label" parent="UI/Control"]
 anchor_left = 1.0
@@ -185,3 +229,5 @@ margin_right = -314.3
 margin_bottom = 63.5305
 custom_fonts/font = SubResource( 3 )
 text = "CONTROLLED NESTS: 0 / 10"
+
+[node name="Info" parent="." instance=ExtResource( 12 )]

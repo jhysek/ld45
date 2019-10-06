@@ -9,14 +9,14 @@
 [ext_resource path="res://Components/Bird/Assets/wing_sitting.png" type="Texture" id=7]
 [ext_resource path="res://Components/Bird/Assets/claw.png" type="Texture" id=8]
 
-[sub_resource type="CircleShape2D" id=1]
-radius = 707.397
-
 [sub_resource type="RectangleShape2D" id=10]
 extents = Vector2( 6.17791, 3.59299 )
 
 [sub_resource type="CircleShape2D" id=2]
 radius = 21.3855
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 707.397
 
 [sub_resource type="Animation" id=3]
 resource_name = "AttackLeft"
@@ -651,15 +651,8 @@ __meta__ = {
 "_edit_horizontal_guides_": [ 25.7688 ]
 }
 
-[node name="Field of vision" type="Area2D" parent="."]
-editor/display_folded = true
-visible = false
-position = Vector2( 537.236, -32.8263 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Field of vision"]
-shape = SubResource( 1 )
-
 [node name="Visuals" type="Node2D" parent="."]
+editor/display_folded = true
 position = Vector2( 12.2003, -1.35559 )
 
 [node name="BodyFlying" type="Sprite" parent="Visuals"]
@@ -721,6 +714,13 @@ position = Vector2( 3.59986, -6.0935 )
 enabled = true
 cast_to = Vector2( 0, 15 )
 
+[node name="FieldOfView" type="Area2D" parent="Visuals"]
+editor/display_folded = true
+position = Vector2( 525.036, -31.4707 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Visuals/FieldOfView"]
+shape = SubResource( 1 )
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "Idle"
 playback_speed = 2.0
@@ -742,6 +742,7 @@ one_shot = true
 [node name="HitArea" type="Area2D" parent="." groups=[
 "HitArea",
 ]]
+editor/display_folded = true
 position = Vector2( 28.6756, -3.45834 )
 collision_layer = 2
 collision_mask = 2
@@ -749,6 +750,10 @@ collision_mask = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitArea"]
 position = Vector2( 1.15279, 1.29688 )
 shape = SubResource( 11 )
+
+[node name="Tween" type="Tween" parent="."]
 [connection signal="area_entered" from="Visuals/BodyFlying/Beak" to="." method="_on_Beak_area_entered"]
 [connection signal="area_entered" from="Visuals/Claw/ClawArea" to="." method="_on_ClawArea_area_entered"]
+[connection signal="body_entered" from="Visuals/FieldOfView" to="." method="_on_Field_of_vision_body_entered"]
 [connection signal="timeout" from="PathPickTimer" to="." method="pick_path"]
+[connection signal="tween_completed" from="Tween" to="." method="_on_Tween_tween_completed"]

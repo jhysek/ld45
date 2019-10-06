@@ -16,15 +16,22 @@ func add_egg(egg):
 	eggs += 1
 	add_child(egg)
 
+func remove_egg():
+	eggs -= 1
+	if eggs < 0:
+		eggs = 0
+
 func _on_Nest_body_entered(body):
 	if body.is_in_group("Enemy"):
 		for overlappng in get_overlapping_bodies():
 			if overlappng.is_in_group("Player"):
 				return
 		lose()
-		player.on_nest_losed()
-		
-	if body.is_in_group("Player"):
+		body.home_nest = self
+		if my_nest:
+			player.on_nest_losed()
+		 
+	if body.is_in_group("Player") and body.controlled:
 		for overlapping in get_overlapping_bodies():
 			if overlapping.is_in_group("Enemy") and overlapping.is_alive():
 				return

@@ -7,6 +7,7 @@ var Bird = load("res://Components/Bird/Bird.tscn")
 var parent 
 var home_nest
 var hatch_timeout = 60
+var hostile = true
 
 onready var progress = $ProgressBar
 
@@ -27,9 +28,14 @@ func _on_HatchTimer_timeout():
 	var bird = Bird.instance()
 	bird.initiate_as_offspring()
 	bird.parent = parent
+	if hostile:	
+		bird.route_code = parent.route_code
+		bird.add_to_group("Enemy")
+		bird.load_routes()
+	else:
+		bird.add_to_group("Player")
 	get_parent().add_child(bird)
 	bird.position = Vector2(randi() % 40 - 20, -20)
 	
-	
-	# create birdie
+	home_nest.remove_egg() 
 	queue_free()	
